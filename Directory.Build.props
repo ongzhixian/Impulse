@@ -1,0 +1,15 @@
+<Project>
+  <PropertyGroup>
+
+    <!--
+    <Company>Emptool</Company>
+    <Copyright>Copyright © 2020, Emptool</Copyright>
+    -->
+    
+    <Company>Ong Zhi Xian</Company>
+    <Copyright>Copyright © 2020, Ong Zhi Xian</Copyright>
+    
+    <NeutralLanguage>en</NeutralLanguage>
+    
+  </PropertyGroup>
+</Project>

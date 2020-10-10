@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Impulse.ConsoleApplications.FirstConsole.Tests
+namespace Impulse.ConsoleApplication.Tests
 {
     [TestClass]
     public class UnitTest1

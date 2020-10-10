@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Impulse.Logging\Impulse.Logging.csproj" />
+    <ProjectReference Include="..\Impulse.ConsoleApplication\Impulse.ConsoleApplication.csproj" />
   </ItemGroup>
 
 </Project>
