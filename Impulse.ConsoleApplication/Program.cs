@@ -1,6 +1,9 @@
 ﻿namespace Impulse.ConsoleApplication
 {
     using Impulse.Applications;
+    using Impulse.Common;
+    using Impulse.Common.Constants;
+    using Impulse.Common.Models;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -11,12 +14,22 @@
     {
         protected Program()
         {
+            // Intentionally left empty to fix Sonar (S1118)
         }
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Application start.");
+            ILogger logger;
 
+            using (ILoggerFactory loggerFactory = LoggerFactory.Create(_ =>
+            {
+                _.SetMinimumLevel(LogLevel.Information);
+                _.AddConsole();
+            })) logger = loggerFactory.CreateLogger(typeof(Program));
+
+            logger.LogInformation("{EventId} Program starting. ", ProgramEvents.PROGRAM_START);
+
+            logger.LogInformation("Getting configuration settings.");
             IConfigurationRoot configurationSettings = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
@@ -24,49 +37,68 @@
                 .AddEnvironmentVariables()
                 .AddCommandLine(args)
                 .Build();
+            logger.LogInformation("Configuration settings set.");
 
             ServiceCollection services = new ServiceCollection();
 
-            Configure(services, configurationSettings);
+            Configure(services, logger, configurationSettings);
 
             using (var serviceProvider = services.BuildServiceProvider())
             {
-                ILogger<Program> logger = serviceProvider.GetService<ILogger<Program>>();
-
-                logger.LogInformation("Start application.");
+                logger.LogInformation("{EventId}", ProgramEvents.APPLICATION_START);
 
                 serviceProvider.GetService<IApplication>().Run(args);
 
-                logger.LogInformation("End application.");
+                logger.LogInformation("{EventId}", ProgramEvents.APPLICATION_END);
             }
 
-            Console.WriteLine("Application end.");
-            Console.WriteLine("Press <ENTER> key to terminate application.");
+            logger.LogInformation("{EventId} Program end. ", ProgramEvents.PROGRAM_END);
+
+            Console.WriteLine("Press <ENTER> key to terminate program.");
             Console.ReadLine();
         }
 
-        private static void Configure(IServiceCollection services, IConfigurationRoot configurationRoot)
+        private static void Configure(IServiceCollection services, ILogger logger, IConfigurationRoot configuration)
         {
-            // Scope (service lifetime) notes:
-            // Transient    objects are always different; a new instance is provided to every controller and every service.
-            // Scoped       objects are the same within a request, but different across different requests.
-            // Singleton    objects are the same for every object and every request.
+            logger.LogInformation("Configuring services.");
 
-            // Configurables
+            // Scope (service lifetime) notes:
+            // Singleton (0)    Specifies that a single instance of the service will be created.
+            //                  => objects are the same for every object and every request.
+            // Scoped (1)       Specifies that a new instance of the service will be created for each scope.
+            //                  In ASP.NET Core applications a scope is created around each server request.
+            //                  => objects are the same within a request, but different across different requests.
+            //Transient (2)     Specifies that a new instance of the service will be created every time it is requested.
+            //                  => objects are always different; a new instance is provided to every controller and every service.
+
+            // Configuration settings should always come first, followed by logging
+            services.AddSingleton<IConfiguration>(configuration);
+
+            // Logging
+            services.AddLogging(_ => _.AddConsole());
+
+            DependencyInjectionConfiguration dependencyInjectionConfiguration = new DependencyInjectionConfiguration();
+            configuration.GetSection("DependencyInjection").Bind(dependencyInjectionConfiguration);
+
+            DependencyInjector dependencyInjector = new DependencyInjector(logger);
+            dependencyInjector.InjectServices(services, dependencyInjectionConfiguration);
+
 #pragma warning disable S125 // Sections of code should not be commented out
+            // New way of doing this?
+            //services.Configure<DependencyInjectionConfiguration>(configuration.GetSection("DependencyInjection"));
+
+
+
             // PLACEHOLDER: services.Configure<ConnectionStrings>(config.GetSection("ConnectionStrings"));
-#pragma warning restore S125 // Sections of code should not be commented out
-            services.AddSingleton<IConfiguration>(configurationRoot);
 
             // Configure logging
-            services.AddLogging(_ => _.AddConsole());
+
             //services.AddLogging(builder =>
-#pragma warning disable S125 // Sections of code should not be commented out
             //{
             //    builder.AddConsole();
             //    builder.AddDebug();
             //});
-#pragma warning restore S125 // Sections of code should not be commented out
+
 
             //var servicesConfiguration = configuration.Get<ServicesConfiguration>();
 
@@ -80,13 +112,30 @@
             //    services.AddTransient(Type.GetType(service.Service), Type.GetType(service.Implementation));
             //}
 
+
             // Add business injectables
-            services.AddTransient<IApplication, DummyApplication>();
+            //DependencyInjector dependencyInjector = new DependencyInjector(dependencyInjectionConfiguration, );
+            //DependencyInjector.InjectServices();
+
+            //services.AddTransient<IApplication, DummyApplication>();
+
+            //            Microsoft.Extensions.DependencyInjection.ServiceDescriptor
+            //Microsoft.Extensions.DependencyInjection.ServiceLifetime
+
+            //                    ServiceDescriptor sd = new ServiceDescriptor(
+            //serviceType,
+            //implementationType,
+            //serviceLifetime);
+            //        services.Add(sd);
+
+
+#pragma warning restore S125 // Sections of code should not be commented out
 
 
             // IMPORTANT! Register our application entry point
             services.AddTransient<Program>();
 
+            logger.LogInformation("Services set.");
         }
     }
 }
