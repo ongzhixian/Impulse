@@ -3,10 +3,12 @@
     using Impulse.Applications;
     using Impulse.Common;
     using Impulse.Common.Constants;
+    using Impulse.Common.Extensions;
     using Impulse.Common.Models;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using NLog.Extensions.Logging;
     using System;
     using System.IO;
 
@@ -75,7 +77,14 @@
             services.AddSingleton<IConfiguration>(configuration);
 
             // Logging
-            services.AddLogging(_ => _.AddConsole());
+            services.AddLogging(_ => 
+            {
+                if (File.Exists("NLog.config")) // Use NLog only if NLog.config file is found
+                    _.AddNLog(configuration);
+
+                if (configuration.IsTrue("Application:EnableDefaultConsoleLogging"))
+                    _.AddConsole();
+            });
 
             DependencyInjectionConfiguration dependencyInjectionConfiguration = new DependencyInjectionConfiguration();
             configuration.GetSection("DependencyInjection").Bind(dependencyInjectionConfiguration);
