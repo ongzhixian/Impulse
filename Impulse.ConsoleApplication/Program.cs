@@ -9,8 +9,10 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using NLog.Extensions.Logging;
+    using Serilog;
     using System;
     using System.IO;
+    using ILogger = Microsoft.Extensions.Logging.ILogger;
 
     class Program
     {
@@ -81,6 +83,13 @@
             {
                 if (File.Exists("NLog.config")) // Use NLog only if NLog.config file is found
                     _.AddNLog(configuration);
+
+                if (configuration.IsTrue("Application:EnableSerilog"))
+                {
+                    _.AddSerilog(new LoggerConfiguration()
+                        .ReadFrom.Configuration(configuration)
+                        .CreateLogger());
+                }
 
                 if (configuration.IsTrue("Application:EnableDefaultConsoleLogging"))
                     _.AddConsole();
