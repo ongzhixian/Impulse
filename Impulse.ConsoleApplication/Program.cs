@@ -23,6 +23,21 @@
 
         static void Main(string[] args)
         {
+            // Setup UnhandledException and ProcessExit event handlers
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
+            Console.CancelKeyPress += Console_CancelKeyPress;
+
+            // ZX: Issue pertaining to `.SetBasePath(Directory.GetCurrentDirectory())`
+            // If we execute `dotnet run --project .\Impulse.ConsoleApplication\Impulse.ConsoleApplication.csproj`
+            // in the parent directory, it will fail to run correctly, because it will take the parent directory.
+            Console.WriteLine("Directory.GetCurrentDirectory() is {0}", Directory.GetCurrentDirectory());
+            Console.WriteLine(args.Length);
+            for (int i = 0; i < args.Length; i++)
+            {
+                Console.WriteLine(args[i]);
+            }
+
             ILogger logger;
 
             using (ILoggerFactory loggerFactory = LoggerFactory.Create(_ =>
@@ -155,5 +170,28 @@
 
             logger.LogInformation("Services set.");
         }
+
+        private static void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            if (Environment.ExitCode < 0)
+            {
+                Log.Error("[ABNORMAL END]; Exit code: [{0}]", Environment.ExitCode);
+            }
+            else
+            {
+                Log.Information("[PROCESS EXIT]; Exit code: [{0}]", Environment.ExitCode);
+            }
+        }
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Log.Error((Exception)e.ExceptionObject, "Unhandled exception.");
+        }
+
+        private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
     }
 }
