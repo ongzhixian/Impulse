@@ -34,6 +34,13 @@ dotnet sln add Impulse.Applications
 dotnet sln add Impulse.Applications.Tests
 dotnet add Impulse.Applications.Tests reference Impulse.Applications
 
+dotnet new classlib --name Impulse.Web
+dotnet new mstest --name Impulse.Web.Tests
+dotnet sln add Impulse.Web
+dotnet sln add Impulse.Web.Tests
+dotnet add Impulse.Web.Tests reference Impulse.Web
+
+
 # 1 Create global.json 
 dotnet new globaljson --sdk-version 2.1.518
 dotnet new sln --name Impulse
