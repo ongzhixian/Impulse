@@ -3,10 +3,17 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc.ApplicationParts;
+    using Microsoft.AspNetCore.Mvc.Razor.TagHelpers;
+    using Microsoft.AspNetCore.Mvc.TagHelpers;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Reflection;
 
     public interface IDummyWebApplication : IApplication
     {
@@ -80,6 +87,27 @@
                 mvcCoreBuilder.AddApiExplorer();    // Microsoft.AspNetCore.Mvc.ApiExplorer
                 mvcCoreBuilder.AddAuthorization();  // Microsoft.AspNetCore.Authorization
 
+                AddDefaultFrameworkParts(mvcCoreBuilder.PartManager);
+
+                // Order added affects options setup order
+
+                // Default framework order
+                mvcCoreBuilder.AddFormatterMappings();
+                mvcCoreBuilder.AddViews();
+                mvcCoreBuilder.AddRazorViewEngine();
+                mvcCoreBuilder.AddRazorPages(); // AddRazorPages
+                mvcCoreBuilder.AddCacheTagHelper();
+
+                // +1 order
+                mvcCoreBuilder.AddDataAnnotations(); // +1 order
+
+                // +10 order
+                mvcCoreBuilder.AddJsonFormatters();
+
+                mvcCoreBuilder.AddCors();
+
+                IMvcBuilder mvcBuilder = new Microsoft.AspNetCore.Mvc.Internal.MvcBuilder(mvcCoreBuilder.Services, mvcCoreBuilder.PartManager);
+                
 
                 // Microsoft.AspNetCore.Mvc.Controller is an abstract class as follows:
                 // public abstract class Controller : ControllerBase, IActionFilter, IFilterMetadata, IAsyncActionFilter, IDisposable
@@ -101,6 +129,22 @@
 
                 //Microsoft.AspNetCore.Hosting.Internal.StartupMethods startupMethods = new Microsoft.AspNetCore.Hosting.Internal.StartupMethods()
                 //new ConventionBasedStartup(Microsoft.AspNetCore.Hosting.Internal.StartupMethods)
+            }
+
+            private void AddDefaultFrameworkParts(ApplicationPartManager partManager)
+            {
+                // InputTagHelper needs Microsoft.AspNetCore.Mvc.TagHelpers nuget package
+                var mvcTagHelpersAssembly = typeof(InputTagHelper).GetTypeInfo().Assembly;
+                if (!partManager.ApplicationParts.OfType<AssemblyPart>().Any(p => p.Assembly == mvcTagHelpersAssembly))
+                {
+                    partManager.ApplicationParts.Add(new FrameworkAssemblyPart(mvcTagHelpersAssembly));
+                }
+
+                var mvcRazorAssembly = typeof(UrlResolutionTagHelper).GetTypeInfo().Assembly;
+                if (!partManager.ApplicationParts.OfType<AssemblyPart>().Any(p => p.Assembly == mvcRazorAssembly))
+                {
+                    partManager.ApplicationParts.Add(new FrameworkAssemblyPart(mvcRazorAssembly));
+                }
             }
 
             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -129,5 +173,19 @@
                 });
             }
         }
+
+        [DebuggerDisplay("{Name}")]
+        private class FrameworkAssemblyPart : AssemblyPart, ICompilationReferencesProvider
+        {
+            public FrameworkAssemblyPart(Assembly assembly)
+                : base(assembly)
+            {
+            }
+
+            IEnumerable<string> ICompilationReferencesProvider.GetReferencePaths() => Enumerable.Empty<string>();
+        }
+
     } // public class DummyApplication : IDummyApplication
+
+
 } // namespace Impulse.Applications
