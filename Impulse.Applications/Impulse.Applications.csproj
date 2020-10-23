@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\**" />
+    <EmbeddedResource Remove="Views\**" />
+    <None Remove="Views\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Impulse.Logging\Impulse.Logging.csproj" />
     <ProjectReference Include="..\Impulse.Networking\Impulse.Networking.csproj" />
     <ProjectReference Include="..\Impulse.Web\Impulse.Web.csproj" />

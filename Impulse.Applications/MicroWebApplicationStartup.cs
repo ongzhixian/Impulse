@@ -10,9 +10,9 @@ using System.Text;
 
 namespace Impulse.Applications
 {
-    public class DummyWebApplicationStartup
+    public class MicroWebApplicationStartup
     {
-        public DummyWebApplicationStartup(IConfiguration configuration)
+        public MicroWebApplicationStartup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
