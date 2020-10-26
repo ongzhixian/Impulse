@@ -35,6 +35,7 @@
             logger.LogInformation("{EventId} Program starting. ", ProgramEvents.PROGRAM_START);
 
             logger.LogInformation("Getting configuration settings.");
+
             IConfigurationRoot configurationSettings = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
@@ -42,7 +43,22 @@
                 .AddEnvironmentVariables()
                 .AddCommandLine(args)
                 .Build();
+
             logger.LogInformation("Configuration settings set.");
+
+
+            using (ILoggerFactory loggerFactory = LoggerFactory.Create(_ =>
+            {
+                _.SetMinimumLevel(LogLevel.Information);
+
+                if (configurationSettings.IsTrue("Application:EnableDefaultConsoleLogging"))
+                    _.AddConsole();
+
+            })) logger = loggerFactory.CreateLogger(typeof(Program));
+
+
+            logger.LogInformation("Other settings based on config.");
+
 
             ServiceCollection services = new ServiceCollection();
 
