@@ -50,6 +50,26 @@ dotnet new classlib --name Impulse.AspNetCoreReplica
 dotnet sln add Impulse.AspNetCoreReplica
 
 
+dotnet new web --name Impulse.AspNetCoreHost
+dotnet new mstest --name Impulse.AspNetCoreHost.Tests
+dotnet sln add Impulse.AspNetCoreHost
+dotnet sln add Impulse.AspNetCoreHost.Tests
+dotnet add Impulse.AspNetCoreHost.Tests reference Impulse.AspNetCoreHost
+
+
+dotnet new mvc --name Impulse.AspNetCoreMvcHost
+dotnet new mstest --name Impulse.AspNetCoreMvcHost.Tests
+dotnet sln add Impulse.AspNetCoreMvcHost
+dotnet sln add Impulse.AspNetCoreMvcHost.Tests
+dotnet add Impulse.AspNetCoreMvcHost.Tests reference Impulse.AspNetCoreMvcHost
+
+
+dotnet new mvc --name Impulse.WebApiHost
+dotnet new mstest --name Impulse.WebApiHost.Tests
+dotnet sln add Impulse.WebApiHost
+dotnet sln add Impulse.WebApiHost.Tests
+dotnet add Impulse.WebApiHost.Tests reference Impulse.WebApiHost
+
 
 # 1 Create global.json 
 dotnet new globaljson --sdk-version 2.1.518
