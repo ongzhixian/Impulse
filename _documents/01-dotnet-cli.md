@@ -10,6 +10,12 @@ dotnet sln add Impulse.ConsoleApplication
 dotnet sln add Impulse.ConsoleApplication.Tests
 dotnet add Impulse.ConsoleApplication.Tests reference Impulse.ConsoleApplication
 
+dotnet new console --name Impulse.ConsoleHost
+dotnet new mstest --name Impulse.ConsoleHost.Tests
+dotnet sln add Impulse.ConsoleHost
+dotnet sln add Impulse.ConsoleHost.Tests
+dotnet add Impulse.ConsoleHost.Tests reference Impulse.ConsoleHost
+
 dotnet new classlib --name Impulse.Networking
 dotnet new mstest --name Impulse.Networking.Tests
 dotnet sln add Impulse.Networking

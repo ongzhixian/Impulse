@@ -104,8 +104,6 @@
             {
                 //var msg = Configuration["message"];
 
-                
-
                 string body = string.Empty;
 
                 //using (var reader = new System.IO.StreamReader(_.Request.Body))
@@ -124,17 +122,10 @@
                 //}
 
                 //System.Net.Http.HttpMessageHandler;
-                
-
-
 
                 await _.Response.WriteAsync(body);
-                
 
                 //await _.Response.WriteAsync("hello world from micro web app");
-
-
-
             });
 
             //if (env.IsDevelopment())
