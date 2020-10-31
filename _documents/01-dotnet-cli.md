@@ -64,7 +64,7 @@ dotnet sln add Impulse.AspNetCoreMvcHost.Tests
 dotnet add Impulse.AspNetCoreMvcHost.Tests reference Impulse.AspNetCoreMvcHost
 
 
-dotnet new mvc --name Impulse.WebApiHost
+dotnet new webapi --name Impulse.WebApiHost
 dotnet new mstest --name Impulse.WebApiHost.Tests
 dotnet sln add Impulse.WebApiHost
 dotnet sln add Impulse.WebApiHost.Tests
