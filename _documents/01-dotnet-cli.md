@@ -46,6 +46,10 @@ dotnet sln add Impulse.Web
 dotnet sln add Impulse.Web.Tests
 dotnet add Impulse.Web.Tests reference Impulse.Web
 
+dotnet new classlib --name Impulse.AspNetCoreReplica
+dotnet sln add Impulse.AspNetCoreReplica
+
+
 
 # 1 Create global.json 
 dotnet new globaljson --sdk-version 2.1.518
