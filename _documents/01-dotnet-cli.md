@@ -79,6 +79,12 @@ dotnet sln add Impulse.CommonWebApiRazor.Tests
 dotnet add Impulse.CommonWebApiRazor.Tests reference Impulse.CommonWebApiRazor
 
 
+
+dotnet new webapi --name Impulse.DummyWebApiHost
+dotnet sln add Impulse.DummyWebApiHost
+
+
+
 # 1 Create global.json 
 dotnet new globaljson --sdk-version 2.1.518
 dotnet new sln --name Impulse
