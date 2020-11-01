@@ -59,7 +59,6 @@
 
             logger.LogInformation("Other settings based on config.");
 
-
             ServiceCollection services = new ServiceCollection();
 
             Configure(services, logger, configurationSettings);

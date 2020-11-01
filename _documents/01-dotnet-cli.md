@@ -79,9 +79,13 @@ dotnet sln add Impulse.CommonWebApiRazor.Tests
 dotnet add Impulse.CommonWebApiRazor.Tests reference Impulse.CommonWebApiRazor
 
 
+dotnet new classlib --name Impulse.CommonWeb
+dotnet new mstest --name Impulse.CommonWeb.Tests
+dotnet sln add Impulse.CommonWeb
+dotnet sln add Impulse.CommonWeb.Tests
+dotnet add Impulse.CommonWeb.Tests reference Impulse.CommonWeb
 
-dotnet new webapi --name Impulse.DummyWebApiHost
-dotnet sln add Impulse.DummyWebApiHost
+
 
 
 
