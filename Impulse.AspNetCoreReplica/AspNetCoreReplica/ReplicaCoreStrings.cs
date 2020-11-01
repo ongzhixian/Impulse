@@ -2213,9 +2213,11 @@ namespace Impulse.Web.AspNetCoreReplica
 
         private static string GetString(string name, params string[] formatterNames)
         {
+#pragma warning disable CS0162
             return "fake";
-            var value = _resourceManager.GetString(name);
 
+            var value = _resourceManager.GetString(name);
+#pragma warning restore CS0162
             System.Diagnostics.Debug.Assert(value != null);
 
             if (formatterNames != null)
