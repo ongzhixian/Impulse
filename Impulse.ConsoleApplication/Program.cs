@@ -12,6 +12,7 @@
     using Serilog;
     using System;
     using System.IO;
+    using System.Linq;
     using ILogger = Microsoft.Extensions.Logging.ILogger;
 
     class Program
@@ -49,6 +50,7 @@
             logger.LogInformation("{EventId} Program starting. ", ProgramEvents.PROGRAM_START);
 
             logger.LogInformation("Getting configuration settings.");
+
             IConfigurationRoot configurationSettings = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
@@ -56,7 +58,22 @@
                 .AddEnvironmentVariables()
                 .AddCommandLine(args)
                 .Build();
+
             logger.LogInformation("Configuration settings set.");
+
+
+            using (ILoggerFactory loggerFactory = LoggerFactory.Create(_ =>
+            {
+                _.SetMinimumLevel(LogLevel.Information);
+
+                if (configurationSettings.IsTrue("Application:EnableDefaultConsoleLogging"))
+                    _.AddConsole();
+
+            })) logger = loggerFactory.CreateLogger(typeof(Program));
+
+
+            logger.LogInformation("Other settings based on config.");
+
 
             ServiceCollection services = new ServiceCollection();
 
@@ -93,6 +110,24 @@
             // Configuration settings should always come first, followed by logging
             services.AddSingleton<IConfiguration>(configuration);
 
+            // TODO: Improve the way we are logging this and the below after chunk
+            var serviceList = services.OrderBy(_ => _.Lifetime).ToList();
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter("services-before.txt"))
+            {
+                sw.AutoFlush = true;
+
+                foreach (var item in serviceList)
+                {
+                    sw.WriteLine("{0} {1} {2} {3} {4}",
+                        item.Lifetime,
+                        item.ServiceType,
+                        item.ImplementationFactory,
+                        item.ImplementationType,
+                        item.ImplementationInstance
+                        );
+                }
+            }
+
             // Logging
             services.AddLogging(_ => 
             {
@@ -109,6 +144,24 @@
                 if (configuration.IsTrue("Application:EnableDefaultConsoleLogging"))
                     _.AddConsole();
             });
+
+            // TODO: Improve the way we are logging this
+            serviceList = services.OrderBy(_ => _.Lifetime).ToList();
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter("services-after.txt"))
+            {
+                sw.AutoFlush = true;
+
+                foreach (var item in serviceList)
+                {
+                    sw.WriteLine("{0} {1} {2} {3} {4}",
+                        item.Lifetime,
+                        item.ServiceType,
+                        item.ImplementationFactory,
+                        item.ImplementationType,
+                        item.ImplementationInstance
+                        );
+                }
+            }
 
             DependencyInjectionConfiguration dependencyInjectionConfiguration = new DependencyInjectionConfiguration();
             configuration.GetSection("DependencyInjection").Bind(dependencyInjectionConfiguration);
