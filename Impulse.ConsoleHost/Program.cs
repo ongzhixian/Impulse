@@ -11,6 +11,7 @@
     using NLog.Extensions.Logging;
     using Serilog;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using ILogger = Microsoft.Extensions.Logging.ILogger;
@@ -36,16 +37,32 @@
 
             logger.LogInformation("Getting configuration settings.");
 
-            IConfigurationRoot configurationSettings = new ConfigurationBuilder()
+            Dictionary<string, string> parsedArgs = args.ToDictionary('=');
+
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
                 .AddJsonFile("appsecrets.json", true, true)
                 .AddEnvironmentVariables()
-                .AddCommandLine(args)
-                .Build();
+                .AddCommandLine(args);
+                
+            if (parsedArgs.Count > 0)
+            {
+                logger.LogInformation("Setting command-line runtime arguments.");
+
+                if (parsedArgs.ContainsKey("settings"))
+                {
+                    configurationBuilder.AddJsonFile(parsedArgs["settings"]);
+                }
+
+                logger.LogInformation("Command-line runtime arguments set.");
+            }
+
+            IConfigurationRoot configurationSettings = configurationBuilder.Build();
 
             logger.LogInformation("Configuration settings set.");
 
+            Console.WriteLine(configurationSettings["Application:Name"]);
 
             using (ILoggerFactory loggerFactory = LoggerFactory.Create(_ =>
             {
