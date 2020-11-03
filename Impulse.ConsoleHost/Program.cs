@@ -35,9 +35,9 @@
 
             logger.LogInformation("{EventId} Program starting. ", ProgramEvents.PROGRAM_START);
 
-            logger.LogInformation("Getting configuration settings.");
-
             Dictionary<string, string> parsedArgs = args.ToDictionary('=');
+
+            logger.LogInformation("Getting configuration settings.");
 
             IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -53,6 +53,11 @@
                 if (parsedArgs.ContainsKey("settings"))
                 {
                     configurationBuilder.AddJsonFile(parsedArgs["settings"]);
+                }
+
+                if (parsedArgs.ContainsKey("nlog"))
+                {
+                    NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(parsedArgs["nlog"]);
                 }
 
                 logger.LogInformation("Command-line runtime arguments set.");
