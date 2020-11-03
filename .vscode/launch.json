@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ConsoleHost (silo)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Impulse.ConsoleHost/bin/Debug/netcoreapp2.1/Impulse.ConsoleHost.dll",
+            "args": ["settings=settings.silo.json", "nlog=NLog.silo.config", "someblank=", "mis=asd=zxc", "asd"],
+            "cwd": "${workspaceFolder}/Impulse.ConsoleHost",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "ConsoleHost (client)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Impulse.ConsoleHost/bin/Debug/netcoreapp2.1/Impulse.ConsoleHost.dll",
+            "args": ["settings=settings.client.json", "nlog=NLog.client.config", "someblank=", "mis=asd=zxc", "asd"],
+            "cwd": "${workspaceFolder}/Impulse.ConsoleHost",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        }
+    ],
+    "compounds": [
+        {
+          "name": "Server/Client",
+          "configurations": ["ConsoleHost (silo)", "ConsoleHost (client)"],
+        }
+    ]
+}
