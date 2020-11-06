@@ -86,6 +86,14 @@ dotnet sln add Impulse.CommonWeb.Tests
 dotnet add Impulse.CommonWeb.Tests reference Impulse.CommonWeb
 
 
+dotnet new angular --name Impulse.AngularHost
+dotnet new mstest --name Impulse.AngularHost.Tests
+dotnet sln add Impulse.AngularHost
+dotnet sln add Impulse.AngularHost.Tests
+dotnet add Impulse.AngularHost.Tests reference Impulse.AngularHost
+
+
+
 
 
 
