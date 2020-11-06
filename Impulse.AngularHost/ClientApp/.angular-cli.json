@@ -5,6 +5,7 @@
   },
   "apps": [
     {
+      "name": "default",
       "root": "src",
       "outDir": "dist",
       "assets": [
@@ -20,6 +21,32 @@
       "styles": [
         "styles.css",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+      ],
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    },
+    {
+      "name": "demo",
+      "root": "src",
+      "outDir": "dist-demo",
+      "assets": [
+        "assets"
+      ],
+      "index": "demo-index.html",
+      "main": "demo-main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "styles.css",
+        "./assets/css/skeleton/normalize.css",
+        "./assets/css/skeleton/skeleton.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

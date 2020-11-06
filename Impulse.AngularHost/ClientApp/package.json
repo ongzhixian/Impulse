@@ -4,7 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --extract-css",
+    "start": "ng serve --extract-css --port 11023;",
+    "startDefault": "ng serve --app defaultApp --extract-css --port 11023",
+    "start-demo": "ng serve --app demo --extract-css --port 11023",
     "build": "ng build --extract-css",
     "build:ssr": "npm run build -- --app=ssr --output-hashing=media",
     "test": "ng test",

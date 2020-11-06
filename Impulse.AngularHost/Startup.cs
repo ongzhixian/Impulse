@@ -62,7 +62,7 @@ namespace Impulse.AngularHost
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseAngularCliServer(npmScript: "start-demo");
                 }
             });
         }
