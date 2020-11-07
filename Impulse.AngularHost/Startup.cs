@@ -24,15 +24,7 @@ namespace Impulse.AngularHost
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddAuthentication(options =>
-            // {
-            //     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            // }).AddJwtBearer(options =>
-            // {
-            //     options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
-            //     options.Audience = Configuration["Auth0:Audience"];
-            // });
+            //Configuration["Jwt:HMACSHA256_Base64"]
 
             services.AddAuthentication(options =>
             {
@@ -44,7 +36,6 @@ namespace Impulse.AngularHost
             {
                 byte[] hmacSha256Bytes = Convert.FromBase64String("4DMF95Tck56TrEZkbdcoFAcdVwvsSSQaIuiYxBT5laXdgEJ6JyWVjhJfykhbtnLWVRm2qCaTMZac2gdEs/SG8g==");
                 var secretKey = new SymmetricSecurityKey(hmacSha256Bytes);
-                //var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -55,13 +46,11 @@ namespace Impulse.AngularHost
 
                     ValidIssuer = "https://localhost:11020",
                     ValidAudience = "https://localhost:11020",
-                    IssuerSigningKey = secretKey
-                };
+                    IssuerSigningKey = secretKey,
+                    };
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = true;
             });
-
-
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -90,7 +79,6 @@ namespace Impulse.AngularHost
             app.UseSpaStaticFiles();
 
             app.UseAuthentication();
-            //app.UseAuthorization();
 
             app.UseMvc(routes =>
             {
@@ -108,7 +96,12 @@ namespace Impulse.AngularHost
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start-demo");
+                    string proxyToSpaDevelopmentServer = Configuration["Application:ProxyToSpaDevelopmentServer"];
+
+                    if (!string.IsNullOrWhiteSpace(proxyToSpaDevelopmentServer))
+                        spa.UseProxyToSpaDevelopmentServer(proxyToSpaDevelopmentServer);
+                    else
+                        spa.UseAngularCliServer(npmScript: "start-demo");
                 }
             });
         }

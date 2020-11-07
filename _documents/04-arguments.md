@@ -24,3 +24,9 @@ The following example will parse `logging` to have the value of `false=debug`
 The following example will also not recognise `logging` as a valid argument as it has no values.
 
 `dotnet run -- settings=mysettings.json start=runtime235 logging=`
+
+# Running npm
+
+Running npm start for a specific application call demo (defined in .angular-cli.json)
+
+npm start -- --app demo

@@ -15,6 +15,11 @@ namespace Impulse.AngularHost.Controllers
     [Route("api/[controller]")]
     public class AuthenticationController : Controller
     {
+        public AuthenticationController()
+        {
+            
+        }
+
         [HttpPost("[action]")]
         public ActionResult Login([FromBody]LoginRequest login)
         {
@@ -46,7 +51,6 @@ namespace Impulse.AngularHost.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-
             //HttpContext.Authentication.SignOutAsync()
             return Ok(new {
                Name = "asd",
