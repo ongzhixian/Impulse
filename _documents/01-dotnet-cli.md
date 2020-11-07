@@ -92,6 +92,8 @@ dotnet sln add Impulse.AngularHost
 dotnet sln add Impulse.AngularHost.Tests
 dotnet add Impulse.AngularHost.Tests reference Impulse.AngularHost
 
+dotnet add Impulse.AngularHost package Microsoft.Data.Sqlite
+dotnet add Impulse.AngularHost package Microsoft.AspNetCore.Authentication.JwtBearer
 
 
 
