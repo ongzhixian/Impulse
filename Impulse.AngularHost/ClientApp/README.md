@@ -101,6 +101,14 @@ ng generate component demo/pages/Home --module=demo-app --app=demo
 ng generate component demo/pages/News --module=demo-app --app=demo
 ng generate component demo/pages/Contact --module=demo-app --app=demo
 ng generate component demo/pages/About --module=demo-app --app=demo
+
+
+ng generate component demo/pages/Login --module=demo-app --app=demo
+ng generate component demo/pages/Privacy --module=demo-app --app=demo
+
+ng generate service demo/services/AuthenticationService --module=demo-app --app=demo
+ng generate service demo/guards/AuthenticationGuard --module=demo-app --app=demo
+
 ```
 
 5.  Create any UI components under `demo/ui_components` folder

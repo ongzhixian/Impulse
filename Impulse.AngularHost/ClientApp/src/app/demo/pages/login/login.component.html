@@ -1,0 +1,22 @@
+<h1>Login</h1>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="six columns">
+        <label for="exampleEmailInput">Your account name (email)</label>
+        <input class="u-full-width" type="email" placeholder="" id="input_email" formControlName="login_email" required />
+      </div>
+    </div>
+    <div class="row">
+        <div class="six columns">
+          <label for="exampleEmailInput">Your account password</label>
+          <input class="u-full-width" type="password" placeholder="" id="input_password" formControlName="login_password" required />
+        </div>
+      </div>
+
+    <input class="button-primary" type="submit" value="Log in">
+</form>
+
+<p>
+    Login Status: {{ loginForm.status }}
+</p>
