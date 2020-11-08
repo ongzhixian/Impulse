@@ -10,6 +10,10 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { DemoAppComponent } from './demo-app/demo-app.component';
 import { DemoNavMenuComponent } from './demo-nav-menu/demo-nav-menu.component';
+import { DemoHomeComponent } from './demo-home/demo-home.component';
+import { DemoNewsComponent } from './demo-news/demo-news.component';
+import { DemoContactComponent } from './demo-contact/demo-contact.component';
+import { DemoAboutComponent } from './demo-about/demo-about.component';
 
 @NgModule({
   declarations: [
@@ -18,14 +22,21 @@ import { DemoNavMenuComponent } from './demo-nav-menu/demo-nav-menu.component';
     CounterComponent,
     FetchDataComponent,
     DemoAppComponent,
-    DemoNavMenuComponent
+    DemoNavMenuComponent,
+    DemoHomeComponent,
+    DemoNewsComponent,
+    DemoContactComponent,
+    DemoAboutComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: DemoHomeComponent, pathMatch: 'full' },
+      { path: 'news', component: DemoNewsComponent, pathMatch: 'full' },
+      { path: 'contact', component: DemoContactComponent, pathMatch: 'full' },
+      { path: 'about', component: DemoAboutComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ])

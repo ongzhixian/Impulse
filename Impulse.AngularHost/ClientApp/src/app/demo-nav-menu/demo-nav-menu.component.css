@@ -3,12 +3,19 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #101820;
+
+    display: inline-block;
+    width: 100%;
+    vertical-align: text-top;
 }
   
 li {
     float: left;
     margin-bottom: 0;
+    border-radius: .675em;
+    background-color: #1b2936;
+    margin-left: .678em;
 }
   
 li a {
@@ -21,5 +28,15 @@ li a {
   
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-    background-color: #111;
+    background-color: #0e2a44;
+    color:#F2AA4C;
+    border-radius: .675em;
+}
+
+li.selected {
+    background-color: #0e2a44;
+}
+li.selected a {
+    color:#F2AA4C;
+    font-weight: bold;
 }

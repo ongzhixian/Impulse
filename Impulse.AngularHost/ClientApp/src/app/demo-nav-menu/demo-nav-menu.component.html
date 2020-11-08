@@ -1,6 +1,19 @@
 <ul>
-  <li><a href="default.asp">Home</a></li>
-  <li><a href="news.asp">News</a></li>
-  <li><a href="contact.asp">Contact</a></li>
-  <li><a href="about.asp">About</a></li>
+
+  <li [routerLinkActive]='["selected"]' [routerLinkActiveOptions]='{ exact: true }'>
+    <a [routerLink]='["/"]'>Home</a>
+  </li>
+
+  <li [routerLinkActive]='["selected"]'>
+    <a [routerLink]='["/news"]'>News</a>
+  </li>
+
+  <li [routerLinkActive]='["selected"]'>
+    <a [routerLink]='["/contact"]'>Contact</a>
+  </li>
+
+  <li [routerLinkActive]='["selected"]'>
+    <a [routerLink]='["/about"]'>About</a>
+  </li>
+
 </ul>

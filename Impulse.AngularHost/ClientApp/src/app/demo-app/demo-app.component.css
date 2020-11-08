@@ -1,4 +1,10 @@
-div {
-    width: 800px;
-    margin: 0 auto;
+header {
+    background-color: #101820;
+    color:#F2AA4C;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+h1 {
+    margin-bottom: 0;
 }
