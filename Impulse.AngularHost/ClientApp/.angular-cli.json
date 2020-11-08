@@ -42,7 +42,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
-      "prefix": "app",
+      "prefix": "demo",
       "styles": [
         "styles.css",
         "./assets/css/skeleton/normalize.css",
