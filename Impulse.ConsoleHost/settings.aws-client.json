@@ -1,0 +1,18 @@
+{
+    "Application": {
+        "Version": "1.0",
+        "Name": "aws-client"
+    },
+    "DependencyInjection": {
+        "TransientServices": [
+        ],
+        "ScopedServices": [
+            {
+                "Service": "Impulse.Applications.IApplication",
+                "Implementation": "Impulse.Applications.DummyAwsClientApplication"
+            }
+        ],
+        "SingletonServices": [
+        ]
+    }
+}
