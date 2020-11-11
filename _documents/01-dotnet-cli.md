@@ -86,6 +86,13 @@ dotnet sln add Impulse.CommonWeb.Tests
 dotnet add Impulse.CommonWeb.Tests reference Impulse.CommonWeb
 
 
+dotnet new classlib --name Impulse.CloudServices
+dotnet new mstest --name Impulse.CloudServices.Tests
+dotnet sln add Impulse.CloudServices
+dotnet sln add Impulse.CloudServices.Tests
+dotnet add Impulse.CloudServices.Tests reference Impulse.CloudServices
+
+
 dotnet new angular --name Impulse.AngularHost
 dotnet new mstest --name Impulse.AngularHost.Tests
 dotnet sln add Impulse.AngularHost
