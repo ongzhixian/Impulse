@@ -93,6 +93,16 @@ dotnet sln add Impulse.CloudServices.Tests
 dotnet add Impulse.CloudServices.Tests reference Impulse.CloudServices
 
 
+dotnet new classlib --name Impulse.CloudServices.Aws
+dotnet new mstest --name Impulse.CloudServices.Aws.Tests
+dotnet sln add Impulse.CloudServices.Aws
+dotnet sln add Impulse.CloudServices.Aws.Tests
+dotnet add Impulse.CloudServices.Aws.Tests reference Impulse.CloudServices.Aws
+
+
+
+
+
 dotnet new angular --name Impulse.AngularHost
 dotnet new mstest --name Impulse.AngularHost.Tests
 dotnet sln add Impulse.AngularHost
@@ -101,7 +111,6 @@ dotnet add Impulse.AngularHost.Tests reference Impulse.AngularHost
 
 dotnet add Impulse.AngularHost package Microsoft.Data.Sqlite
 dotnet add Impulse.AngularHost package Microsoft.AspNetCore.Authentication.JwtBearer
-
 
 
 
