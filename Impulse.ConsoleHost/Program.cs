@@ -45,6 +45,12 @@
                 .AddJsonFile("appsecrets.json", true, true)
                 .AddEnvironmentVariables()
                 .AddCommandLine(args);
+
+            string secretsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".impulse.secrets.json");
+            if (File.Exists(secretsFilePath))
+            {
+                configurationBuilder.AddJsonFile(secretsFilePath);
+            }
                 
             if (parsedArgs.Count > 0)
             {
@@ -53,6 +59,11 @@
                 if (parsedArgs.ContainsKey("settings"))
                 {
                     configurationBuilder.AddJsonFile(parsedArgs["settings"]);
+                }
+
+                if (parsedArgs.ContainsKey("secrets"))
+                {
+                    configurationBuilder.AddJsonFile(parsedArgs["secrets"]);
                 }
 
                 if (parsedArgs.ContainsKey("nlog"))
