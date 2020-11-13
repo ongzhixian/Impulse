@@ -20,14 +20,14 @@
 
             logger.LogInformation("Building assembly dictionary.");
 
-            assemblyDictionary = AppDomain.CurrentDomain.GetAssemblies().ToDictionary(_ => _.GetName().Name);
+            assemblyDictionary = new Dictionary<string, Assembly>();
 
             foreach (var item in assemblyDictionary)
             {
                 logger.LogDebug("Initial assembly dictionary {Assembly}", item.Value.FullName);
             }
 
-            AddAssemblyDictionary(assemblyDictionary, Assembly.GetExecutingAssembly().GetReferencedAssemblies());
+            AddAssemblyDictionary(assemblyDictionary, AppDomain.CurrentDomain.GetAssemblies().Select(r => r.GetName()));
 
             logger.LogInformation("Assembly dictionary set.");
         } // public DependencyInjector(...)
@@ -88,7 +88,7 @@
             }
         } // private void InjectServices(...)
 
-        private void AddAssemblyDictionary(IDictionary<string, Assembly> assemblyDictionary, AssemblyName[] referencedAssembyNames)
+        private void AddAssemblyDictionary(IDictionary<string, Assembly> assemblyDictionary, IEnumerable<AssemblyName> referencedAssembyNames)
         {
             foreach (AssemblyName assemblyName in referencedAssembyNames)
             {
