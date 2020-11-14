@@ -46,23 +46,37 @@
         private void InjectServices(IServiceCollection services, IList<ServiceConfiguration> serviceConfigurationList, ServiceLifetime serviceLifetime)
         {
             string serviceTypeAssemblyName;
+            string serviceTypeName;
             string implementationTypeAssemblyName;
+            string implementationTypeName;
+            string[] typeAssemblyNameParts;
 
+            // TODO: To refactor
             foreach (var serviceConfiguration in serviceConfigurationList)
             {
-                try
+                typeAssemblyNameParts = serviceConfiguration.Service.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (typeAssemblyNameParts.Length > 1)
                 {
-                    serviceTypeAssemblyName = serviceConfiguration.Service.Substring(0, serviceConfiguration.Service.LastIndexOf('.'));
-                    implementationTypeAssemblyName = serviceConfiguration.Service.Substring(0, serviceConfiguration.Implementation.LastIndexOf('.'));
+                    serviceTypeAssemblyName = typeAssemblyNameParts[1].Trim();
+                    serviceTypeName = typeAssemblyNameParts[0].Trim();
                 }
-                catch (Exception ex)
+                else
                 {
-                    logger.LogError(ex, "Invalid service {Service} or implementation {Implementation} name defined in configuration for service lifetime {ServiceLifetime}.", 
-                        serviceConfiguration.Service, serviceConfiguration.Implementation, serviceLifetime);
-                    continue;
+                    try
+                    {
+                        serviceTypeAssemblyName = serviceConfiguration.Service.Substring(0, serviceConfiguration.Service.LastIndexOf('.'));
+                        serviceTypeName = serviceConfiguration.Service.Trim();
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogError(ex, "Invalid service {Service} name defined in configuration for service lifetime {ServiceLifetime}.",
+                            serviceConfiguration.Service, serviceLifetime);
+                        continue;
+                    }
                 }
 
-                Type serviceType = assemblyDictionary[serviceTypeAssemblyName]?.ExportedTypes.FirstOrDefault(r => r.FullName == serviceConfiguration.Service);
+                Type serviceType = assemblyDictionary[serviceTypeAssemblyName]?.ExportedTypes.FirstOrDefault(r => r.FullName == serviceTypeName);
                 if (serviceType == null)
                 {
                     Console.Error.WriteLine("ERR serviceType");
@@ -70,7 +84,29 @@
                     continue;
                 }
 
-                Type implementationType = assemblyDictionary[implementationTypeAssemblyName]?.ExportedTypes.FirstOrDefault(r => r.FullName == serviceConfiguration.Implementation);
+                typeAssemblyNameParts = serviceConfiguration.Implementation.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (typeAssemblyNameParts.Length > 1)
+                {
+                    implementationTypeAssemblyName = typeAssemblyNameParts[1].Trim();
+                    implementationTypeName = typeAssemblyNameParts[0].Trim();
+                }
+                else
+                {
+                    try
+                    {
+                        implementationTypeAssemblyName = serviceConfiguration.Service.Substring(0, serviceConfiguration.Implementation.LastIndexOf('.'));
+                        implementationTypeName = serviceConfiguration.Implementation.Trim();
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogError(ex, "Invalid implementation {Implementation} name defined in configuration for service lifetime {ServiceLifetime}.",
+                            serviceConfiguration.Implementation, serviceLifetime);
+                        continue;
+                    }
+                }
+
+                Type implementationType = assemblyDictionary[implementationTypeAssemblyName]?.ExportedTypes.FirstOrDefault(r => r.FullName == implementationTypeName);
                 if (implementationType == null)
                 {
                     Console.Error.WriteLine("ERR implementationType");
