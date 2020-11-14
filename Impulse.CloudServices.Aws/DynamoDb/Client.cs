@@ -3,7 +3,6 @@ using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
-using Impulse.CloudServices.Aws.Models;
 using Impulse.Common.Extensions;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,8 +17,8 @@ namespace Impulse.CloudServices.Aws.DynamoDb
     {
         private readonly ILogger logger;
         //private readonly AmazonDynamoDBConfig dynamoDBConfig;
-        private readonly AmazonDynamoDBClient dynamoDBClient;
-        private readonly DynamoDBContext dynamoDBContext;
+        private readonly AmazonDynamoDBClient dynamoDbClient;
+        private readonly DynamoDBContext dynamoDbContext;
 
         public Client(ILogger<Client> logger)
         {
@@ -28,8 +27,8 @@ namespace Impulse.CloudServices.Aws.DynamoDb
             // TODO: If we want to use local development instance of DynamoDB, we will need this
             //dynamoDBConfig = new AmazonDynamoDBConfig();
 
-            dynamoDBClient = new AmazonDynamoDBClient();
-            dynamoDBContext = new DynamoDBContext(dynamoDBClient);
+            dynamoDbClient = new AmazonDynamoDBClient();
+            dynamoDbContext = new DynamoDBContext(dynamoDbClient);
 
             logger.LogInformation($"DynamoDB constructor");
         }
@@ -117,7 +116,7 @@ namespace Impulse.CloudServices.Aws.DynamoDb
         {
             logger.LogInformation(LoggingLayout.StartOperation, Operation.CheckIfExist, ItemType.Table, tableName, OperationState.Start);
 
-            ListTablesResponse response = await dynamoDBClient.ListTablesAsync();
+            ListTablesResponse response = await dynamoDbClient.ListTablesAsync();
 
             bool result = response.TableNames.Contains(tableName);
 
@@ -126,8 +125,8 @@ namespace Impulse.CloudServices.Aws.DynamoDb
             return result;
         }
 
-        public async Task<bool> CreateTable(string tableName, 
-            Func<IClient, List<AttributeDefinition>> fnAttributeDefinitionList, 
+        public async Task<bool> CreateTable(string tableName,
+            Func<IClient, List<AttributeDefinition>> fnAttributeDefinitionList,
             Func<IClient, List<KeySchemaElement>> fnKeySchemaElementList,
             long readCapacityUnits, long writeCapacityUnits)
         {
@@ -145,9 +144,9 @@ namespace Impulse.CloudServices.Aws.DynamoDb
         }
 
         public async Task<bool> CreateTable(
-            string tableName, 
-            List<AttributeDefinition> tableAttributes, 
-            List<KeySchemaElement> tableKeySchema, 
+            string tableName,
+            List<AttributeDefinition> tableAttributes,
+            List<KeySchemaElement> tableKeySchema,
             ProvisionedThroughput provisionedThroughput)
         {
             bool response = true;
@@ -162,7 +161,7 @@ namespace Impulse.CloudServices.Aws.DynamoDb
 
             try
             {
-                CreateTableResponse createTableResponse = await dynamoDBClient.CreateTableAsync(request);
+                CreateTableResponse createTableResponse = await dynamoDbClient.CreateTableAsync(request);
             }
             catch (Exception)
             {
@@ -180,7 +179,7 @@ namespace Impulse.CloudServices.Aws.DynamoDb
 
             try
             {
-                DeleteTableResponse deleteTableResponse = await dynamoDBClient.DeleteTableAsync(tableName);
+                DeleteTableResponse deleteTableResponse = await dynamoDbClient.DeleteTableAsync(tableName);
             }
             catch (Exception)
             {
@@ -199,7 +198,7 @@ namespace Impulse.CloudServices.Aws.DynamoDb
             // If the table exists, get its description.
             try
             {
-                var response = await dynamoDBClient.DescribeTableAsync(tableName);
+                var response = await dynamoDbClient.DescribeTableAsync(tableName);
                 result = response.Table;
             }
             catch (Exception)
@@ -215,16 +214,18 @@ namespace Impulse.CloudServices.Aws.DynamoDb
 
             bool result = false;
 
+            PutItemRequest request = null;
+
             try
             {
-                PutItemRequest request = new PutItemRequest
+                request = new PutItemRequest
                 {
                     TableName = tableName,
                     Item = fnAttributeValueDictionary.Invoke(this)
                 };
 
-                PutItemResponse response = await dynamoDBClient.PutItemAsync(request);
-                
+                PutItemResponse response = await dynamoDbClient.PutItemAsync(request);
+
                 result = true;
             }
             catch (Exception e)
@@ -237,32 +238,109 @@ namespace Impulse.CloudServices.Aws.DynamoDb
             return result;
         }
 
-        ////////////////////////////////////////
-        // Not in interface
-        
-
-        public async Task SaveBook()
+        public async Task Save<T>(T item)
         {
+            logger.LogInformation(LoggingLayout.StartOperation, Operation.CreateItem, ItemType.Table, typeof(T).Name, OperationState.Start);
+
+            bool result = false;
+
             try
             {
-                DynamoDBContext context = new DynamoDBContext(dynamoDBClient);
-
-                Book myBook = new Book
+                using (DynamoDBContext context = new DynamoDBContext(dynamoDbClient))
                 {
-                    Id = 1001,
-                    Title = "object persistence-AWS SDK for.NET SDK-Book 1001",
-                    ISBN = "111-1111111001",
-                    BookAuthors = new List<string> { "Author 1", "Author 2" },
-                };
+                    await context.SaveAsync(item);
 
-                // Save the book.
-                await context.SaveAsync(myBook);
+                    result = true;
+                }
             }
             catch (AmazonDynamoDBException e) { logger.LogError(e, "AmazonDynamoDBException"); }
             catch (AmazonServiceException e) { logger.LogError(e, "AmazonServiceException"); }
             catch (Exception e) { logger.LogError(e, "Unknown exception"); }
 
+            logger.LogInformation(LoggingLayout.EndOperation, Operation.CreateItem, ItemType.Table, typeof(T).Name, OperationState.End, result.AsSuccess());
         }
+
+        public void GetItem(string tableName,
+            Func<IClient, Dictionary<string, AttributeValue>> fnKey, 
+            string projectionExpression,
+            bool consistentRead = true
+            )
+        {
+            var request = new GetItemRequest
+            {
+                TableName = tableName,
+                Key = new Dictionary<string, AttributeValue>()
+                {
+                    { "Id", new AttributeValue {
+                          N = "1000"
+                      } }
+                },
+                ProjectionExpression = "Id, ISBN, Title, Authors",
+                ConsistentRead = consistentRead
+            };
+
+            Task<GetItemResponse> response = dynamoDbClient.GetItemAsync(request);
+
+            // Check the response.
+            Dictionary<string, AttributeValue> attributeList = response.Result.Item; // attribute list in the response.
+
+            //return attributeList;
+        }
+
+        public async Task<Document> GetDocumentAsync(string tableName, string documentKey)
+        {
+            Table table = Table.LoadTable(dynamoDbClient, new TableConfig(tableName));
+
+            return await table.GetItemAsync(new Primitive(documentKey, true));
+        }
+
+        // Not in interface
+        ////////////////////////////////////////
+
+        //public async Task SaveBook()
+        //{
+        //    try
+        //    {
+        //        DynamoDBContext context = new DynamoDBContext(dynamoDBClient);
+
+        //        Book myBook = new Book
+        //        {
+        //            Id = 1001,
+        //            Title = "object persistence-AWS SDK for.NET SDK-Book 1001",
+        //            ISBN = "111-1111111001",
+        //            BookAuthors = new List<string> { "Author 1", "Author 2" },
+        //        };
+
+        //        // Save the book.
+        //        await context.SaveAsync(myBook);
+        //    }
+        //    catch (AmazonDynamoDBException e) { logger.LogError(e, "AmazonDynamoDBException"); }
+        //    catch (AmazonServiceException e) { logger.LogError(e, "AmazonServiceException"); }
+        //    catch (Exception e) { logger.LogError(e, "Unknown exception"); }
+
+        //}
+
+        //public async Task<Document> ReadingMovie_async(int year, string title)
+        //{
+        //    Table table = Table.LoadTable(dynamoDBClient, "ProductCatalog");
+
+
+
+        //    // Create Primitives for the HASH and RANGE portions of the primary key
+        //    Primitive hash = new Primitive(year.ToString(), true);
+        //    Primitive range = new Primitive(title, false);
+
+        //    try
+        //    {
+        //        table.GetItemAsync(hash, range, )
+        //        var movieItem = await MoviesTable.GetItemAsync(hash, range, Token);
+        //        return movieItem;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //}
 
         public async Task<bool> SaveDocumentAsync(string tableName, Document document)
         {
@@ -288,7 +366,7 @@ namespace Impulse.CloudServices.Aws.DynamoDb
 
             try
             {
-                Table table = Table.LoadTable(dynamoDBClient, tableName);
+                Table table = Table.LoadTable(dynamoDbClient, tableName);
 
                 document = await table.PutItemAsync(document);
 

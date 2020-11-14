@@ -1,4 +1,5 @@
-﻿using Amazon.DynamoDBv2.Model;
+﻿using Amazon.DynamoDBv2.DocumentModel;
+using Amazon.DynamoDBv2.Model;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -33,6 +34,14 @@ namespace Impulse.CloudServices.Aws.DynamoDb
 
         Task<TableDescription> GetTableDescription(string tableName);
 
-        Task SaveBook();
+        Task Save<T>(T item);
+
+        Task<Document> GetDocumentAsync(string tableName, string documentKey);
+
+        void GetItem(string tableName,
+           Func<IClient, Dictionary<string, AttributeValue>> fnKey,
+           string projectionExpression,
+           bool consistentRead = true
+           );
     }
 }

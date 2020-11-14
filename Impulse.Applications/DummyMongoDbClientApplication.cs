@@ -36,7 +36,7 @@
 
                 logger.LogInformation($"dumm table exists: {exists}");
 
-                dynamoDbClient.SaveBook();
+                //dynamoDbClient.SaveBook();
 
                 logger.LogInformation($"Dummy AWS Client Application  {this.configuration["Application:Version"]} end");
             });
