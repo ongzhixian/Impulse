@@ -14,6 +14,7 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Threading.Tasks;
     using ILogger = Microsoft.Extensions.Logging.ILogger;
 
     class Program
@@ -100,7 +101,7 @@
             {
                 logger.LogInformation("{EventId}", ProgramEvents.APPLICATION_START);
 
-                serviceProvider.GetService<IApplication>().Run(args);
+                serviceProvider.GetService<IApplication>().RunAsync(args);
 
                 logger.LogInformation("{EventId}", ProgramEvents.APPLICATION_END);
             }

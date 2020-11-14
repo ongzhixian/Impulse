@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Amazon.DynamoDBv2;
+﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
 using Amazon.Runtime;
 using Impulse.CloudServices.Aws.Models;
+using Impulse.Common.Extensions;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Impulse.CloudServices.Aws.DynamoDb
 {
@@ -74,11 +73,57 @@ namespace Impulse.CloudServices.Aws.DynamoDb
             //return tableAttributes;
         }
 
+        public AttributeValue MapAttributeValue(string dataType, object dataValue)
+        {
+            try
+            {
+                switch (dataType.ToUpperInvariant())
+                {
+                    case "B":
+                        return new AttributeValue { B = (MemoryStream)dataValue };
+                    case "BOOL":
+                        return new AttributeValue { BOOL = (bool)dataValue };
+                    case "BS":
+                        return new AttributeValue { BS = (List<MemoryStream>)dataValue };
+                    case "L":
+                        return new AttributeValue { L = (List<AttributeValue>)dataValue };
+                    case "M":
+                        return new AttributeValue { M = (Dictionary<string, AttributeValue>)dataValue };
+                    case "N":
+                        return new AttributeValue { N = (string)dataValue };
+                    case "NULL":
+                        return new AttributeValue { NULL = (bool)dataValue };
+                    case "S":
+                        return new AttributeValue { S = (string)dataValue };
+                    case "SS":
+                        return new AttributeValue { SS = (List<string>)dataValue };
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(dataType));
+                }
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "{functionName} {dataType} {dataValue}", nameof(MapAttributeValue), dataType, dataValue);
+                throw;
+            }
+        }
+
+        public Dictionary<string, AttributeValue> AttributeValueDictionary(params (string name, string dataType, object dataValue)[] nameAttributeValues)
+        {
+            return nameAttributeValues.ToDictionary(_ => _.name, _ => MapAttributeValue(_.dataType, _.dataValue));
+        }
+
         public async Task<bool> TableExists(string tableName)
         {
-            var response = await dynamoDBClient.ListTablesAsync();
+            logger.LogInformation(LoggingLayout.StartOperation, Operation.CheckIfExist, ItemType.Table, tableName, OperationState.Start);
 
-            return response.TableNames.Contains(tableName);
+            ListTablesResponse response = await dynamoDBClient.ListTablesAsync();
+
+            bool result = response.TableNames.Contains(tableName);
+
+            logger.LogInformation(LoggingLayout.EndOperation, Operation.CheckIfExist, ItemType.Table, tableName, OperationState.End, result.AsExists());
+
+            return result;
         }
 
         public async Task<bool> CreateTable(string tableName, 
@@ -86,11 +131,17 @@ namespace Impulse.CloudServices.Aws.DynamoDb
             Func<IClient, List<KeySchemaElement>> fnKeySchemaElementList,
             long readCapacityUnits, long writeCapacityUnits)
         {
-            return await CreateTable(
+            logger.LogInformation(LoggingLayout.StartOperation, Operation.Create, ItemType.Table, tableName, OperationState.Start);
+
+            bool result = await CreateTable(
                 tableName,
                 fnAttributeDefinitionList.Invoke(this),
                 fnKeySchemaElementList.Invoke(this),
                 new ProvisionedThroughput(readCapacityUnits, writeCapacityUnits));
+
+            logger.LogInformation(LoggingLayout.EndOperation, Operation.Create, ItemType.Table, tableName, OperationState.End, result.AsSuccess());
+
+            return result;
         }
 
         public async Task<bool> CreateTable(
@@ -101,8 +152,7 @@ namespace Impulse.CloudServices.Aws.DynamoDb
         {
             bool response = true;
 
-            // Build the 'CreateTableRequest' structure for the new table
-            var request = new CreateTableRequest
+            CreateTableRequest request = new CreateTableRequest
             {
                 TableName = tableName,
                 AttributeDefinitions = tableAttributes,
@@ -112,12 +162,32 @@ namespace Impulse.CloudServices.Aws.DynamoDb
 
             try
             {
-                var makeTbl = await dynamoDBClient.CreateTableAsync(request);
+                CreateTableResponse createTableResponse = await dynamoDBClient.CreateTableAsync(request);
             }
             catch (Exception)
             {
                 response = false;
             }
+
+            return response;
+        }
+
+        public async Task<bool> DeleteTable(string tableName)
+        {
+            logger.LogInformation(LoggingLayout.StartOperation, Operation.Delete, ItemType.Table, tableName, OperationState.Start);
+
+            bool response = true;
+
+            try
+            {
+                DeleteTableResponse deleteTableResponse = await dynamoDBClient.DeleteTableAsync(tableName);
+            }
+            catch (Exception)
+            {
+                response = false;
+            }
+
+            logger.LogInformation(LoggingLayout.EndOperation, Operation.Delete, ItemType.Table, tableName, OperationState.End, response.AsSuccess());
 
             return response;
         }
@@ -139,6 +209,37 @@ namespace Impulse.CloudServices.Aws.DynamoDb
             return result;
         }
 
+        public async Task<bool> CreateItem(string tableName, Func<IClient, Dictionary<string, AttributeValue>> fnAttributeValueDictionary)
+        {
+            logger.LogInformation(LoggingLayout.StartOperation, Operation.CreateItem, ItemType.Table, tableName, OperationState.Start);
+
+            bool result = false;
+
+            try
+            {
+                PutItemRequest request = new PutItemRequest
+                {
+                    TableName = tableName,
+                    Item = fnAttributeValueDictionary.Invoke(this)
+                };
+
+                PutItemResponse response = await dynamoDBClient.PutItemAsync(request);
+                
+                result = true;
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "Unknown exception");
+            }
+
+            logger.LogInformation(LoggingLayout.EndOperation, Operation.CreateItem, ItemType.Table, tableName, OperationState.End, result.AsSuccess());
+
+            return result;
+        }
+
+        ////////////////////////////////////////
+        // Not in interface
+        
 
         public async Task SaveBook()
         {
@@ -157,10 +258,48 @@ namespace Impulse.CloudServices.Aws.DynamoDb
                 // Save the book.
                 await context.SaveAsync(myBook);
             }
-            catch (AmazonDynamoDBException e) { logger.LogError(e, "AmazonDynamoDBException");}
+            catch (AmazonDynamoDBException e) { logger.LogError(e, "AmazonDynamoDBException"); }
             catch (AmazonServiceException e) { logger.LogError(e, "AmazonServiceException"); }
             catch (Exception e) { logger.LogError(e, "Unknown exception"); }
 
+        }
+
+        public async Task<bool> SaveDocumentAsync(string tableName, Document document)
+        {
+            //Table table = Table.LoadTable(dynamoDBClient, "ProductCatalog");
+
+            //var book1 = new Document();
+            //book1["Id"] = 101;
+            //book1["Title"] = "Book 101 Title";
+            //book1["ISBN"] = "111-1111111111";
+            //book1["Authors"] = new List<string> { "Author 1" };
+            //book1["Price"] = -2; // *** Intentional value. Later used to illustrate scan.
+            //book1["Dimensions"] = "8.5 x 11.0 x 0.5";
+            //book1["PageCount"] = 500;
+            //book1["InPublication"] = true;
+            //book1["ProductCategory"] = "Book";
+
+            ////productCatalogTable.PutItem(book1);
+            //table.PutItemAsync()
+
+            //book1.Add("asd", DynamoDBEntry)
+
+            bool result = false;
+
+            try
+            {
+                Table table = Table.LoadTable(dynamoDBClient, tableName);
+
+                document = await table.PutItemAsync(document);
+
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                //Console.WriteLine("      FAILED to write the new movie, because:\n       {0}.", ex.Message);
+            }
+
+            return result;
         }
 
     }

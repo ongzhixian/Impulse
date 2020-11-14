@@ -3,6 +3,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using System;
+    using System.Threading.Tasks;
 
     public interface IDummyApplication : IApplication
     {
@@ -21,13 +22,17 @@
             DemoLogging();
         } // public DummyApplication(...)
 
-        public void Run(string[] args)
+        public Task RunAsync(string[] args)
         {
-            for (int i = 0; i < 10; i++)
+            return Task.Run(() =>
             {
-                logger.LogInformation($"Dummy Application Message {i} {this.configuration["Application:Version"]}");
-                System.Threading.Thread.Sleep(1000);
-            }
+                for (int i = 0; i < 10; i++)
+                {
+                    logger.LogInformation($"Dummy Application Message {i} {this.configuration["Application:Version"]}");
+                    System.Threading.Thread.Sleep(1000);
+                }
+            });
+            
         } // Run(...)
 
         private void DemoLogging()

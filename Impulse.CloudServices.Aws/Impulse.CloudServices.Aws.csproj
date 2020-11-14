@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Impulse.Common\Impulse.Common.csproj" />
     <ProjectReference Include="..\Impulse.Logging\Impulse.Logging.csproj" />
   </ItemGroup>
 

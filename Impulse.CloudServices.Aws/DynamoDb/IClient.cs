@@ -13,6 +13,8 @@ namespace Impulse.CloudServices.Aws.DynamoDb
 
         List<KeySchemaElement> KeySchemaElementList(params (string name, string keyType)[] nameKeyTypes);
 
+        Dictionary<string, AttributeValue> AttributeValueDictionary(params (string name, string dataType, object dataValue)[] nameAttributeValues);
+
         Task<bool> CreateTable(
             string tableName,
             List<AttributeDefinition> tableAttributes,
@@ -24,6 +26,10 @@ namespace Impulse.CloudServices.Aws.DynamoDb
             Func<IClient, List<AttributeDefinition>> fnAttributeDefinitionList,
             Func<IClient, List<KeySchemaElement>> fnKeySchemaElementList,
             long readCapacityUnits, long writeCapacityUnits);
+
+        Task<bool> DeleteTable(string tableName);
+
+        Task<bool> CreateItem(string tableName, Func<IClient, Dictionary<string, AttributeValue>> fnAttributeValueDictionary);
 
         Task<TableDescription> GetTableDescription(string tableName);
 

@@ -4,6 +4,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using System;
+    using System.Threading.Tasks;
 
     public class DummyMongoDbClientApplication : IDummyApplication
     {
@@ -19,24 +20,26 @@
 
         } // public DummyAwsClientApplication(...)
 
-        public void Run(string[] args)
+        public Task RunAsync(string[] args)
         {
-            
-            logger.LogInformation($"Dummy AWS Client Application {this.configuration["Application:Version"]} start");
+            return Task.Run(() =>
+            {
+                logger.LogInformation($"Dummy AWS Client Application {this.configuration["Application:Version"]} start");
 
-            bool exists = dynamoDbClient.TableExists("message").Result;
+                bool exists = dynamoDbClient.TableExists("message").Result;
 
-            logger.LogInformation($"message table exists: {exists}");
+                logger.LogInformation($"message table exists: {exists}");
 
-            //dynamoDB.CreateTableAsync()
+                //dynamoDB.CreateTableAsync()
 
-            exists = dynamoDbClient.TableExists("dumm").Result;
+                exists = dynamoDbClient.TableExists("dumm").Result;
 
-            logger.LogInformation($"dumm table exists: {exists}");
+                logger.LogInformation($"dumm table exists: {exists}");
 
-            dynamoDbClient.SaveBook();
+                dynamoDbClient.SaveBook();
 
-            logger.LogInformation($"Dummy AWS Client Application  {this.configuration["Application:Version"]} end");
+                logger.LogInformation($"Dummy AWS Client Application  {this.configuration["Application:Version"]} end");
+            });
 
         } // Run(...)
 
