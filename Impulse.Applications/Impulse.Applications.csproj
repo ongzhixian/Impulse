@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Impulse.CloudServices\Impulse.CloudServices.csproj" />
     <ProjectReference Include="..\Impulse.Common\Impulse.Common.csproj" />
+    <ProjectReference Include="..\Impulse.DataStores\Impulse.DataStores.csproj" />
     <ProjectReference Include="..\Impulse.Networking\Impulse.Networking.csproj" />
     <ProjectReference Include="..\Impulse.Web\Impulse.Web.csproj" />
   </ItemGroup>

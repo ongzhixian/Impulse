@@ -99,7 +99,18 @@ dotnet sln add Impulse.CloudServices.Aws
 dotnet sln add Impulse.CloudServices.Aws.Tests
 dotnet add Impulse.CloudServices.Aws.Tests reference Impulse.CloudServices.Aws
 
+dotnet new classlib --name Impulse.DataStores
+dotnet new mstest --name Impulse.DataStores.Tests
+dotnet sln add Impulse.DataStores
+dotnet sln add Impulse.DataStores.Tests
+dotnet add Impulse.DataStores.Tests reference Impulse.DataStores
 
+
+dotnet new classlib --name Impulse.DataStores.MongoDb
+dotnet new mstest --name Impulse.DataStores.MongoDb.Tests
+dotnet sln add Impulse.DataStores.MongoDb
+dotnet sln add Impulse.DataStores.MongoDb.Tests
+dotnet add Impulse.DataStores.MongoDb.Tests reference Impulse.DataStores.MongoDb
 
 
 
