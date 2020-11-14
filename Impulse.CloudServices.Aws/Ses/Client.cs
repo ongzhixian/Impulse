@@ -7,6 +7,12 @@ using System.Text;
 
 namespace Impulse.CloudServices.Aws.Ses
 {
+    // TODO: Further improvements
+    // Currently just a simple proof of concept to prove that it works
+    // https://docs.aws.amazon.com/ses/latest/DeveloperGuide/examples-send-using-sdk.html
+    // Amazon SES console at https://console.aws.amazon.com/ses/
+    // https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-simulator.html
+    // 
     public interface ISesClient
     {
         void Send();
