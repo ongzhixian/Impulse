@@ -80,6 +80,7 @@ namespace Impulse.DataStores.MongoDb
                 { "class_id", 480}
             };
 
+            
             collection.InsertOne(document);
 
             
