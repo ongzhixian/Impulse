@@ -352,3 +352,4 @@ MigrationBackup/
 # ZX custom
 .vscode
 .idea
+appsecrets.json
