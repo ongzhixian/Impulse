@@ -1,7 +1,8 @@
 ﻿namespace Impulse.Applications
 {
-    using Impulse.CloudServices.Aws.DynamoDb;
+    using Impulse.DataStores.MongoDb;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using System;
     using System.Threading.Tasks;
@@ -10,41 +11,29 @@
     {
         private readonly ILogger logger;
         private readonly IConfiguration configuration;
-        private readonly IClient dynamoDbClient;
+        private readonly IMongoDbClient mongoDbClient;
 
-        public DummyMongoDbClientApplication(ILogger<DummyAwsClientApplication> logger, IConfiguration configuration, IClient dynamoDbClient)
+        public DummyMongoDbClientApplication(ILogger<DummyAwsClientApplication> logger, IConfiguration configuration, IMongoDbClient mongoDbClient)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            this.dynamoDbClient = dynamoDbClient ?? throw new ArgumentNullException(nameof(dynamoDbClient));
+            this.mongoDbClient = mongoDbClient ?? throw new ArgumentNullException(nameof(mongoDbClient));
 
-        } // public DummyAwsClientApplication(...)
+            // TODO: To improve! Checking if connectionstring exists; can connect, ..etc...
+            string connectionString = configuration["DataStores:MongoDb:Cluster0"];
+            this.mongoDbClient.Init(connectionString);
+        }
 
         public Task RunAsync(string[] args)
         {
             return Task.Run(() =>
             {
-                logger.LogInformation($"Dummy AWS Client Application {this.configuration["Application:Version"]} start");
-
-                bool exists = dynamoDbClient.TableExists("message").Result;
-
-                logger.LogInformation($"message table exists: {exists}");
-
-                //dynamoDB.CreateTableAsync()
-
-                exists = dynamoDbClient.TableExists("dumm").Result;
-
-                logger.LogInformation($"dumm table exists: {exists}");
-
-                //dynamoDbClient.SaveBook();
-
-                logger.LogInformation($"Dummy AWS Client Application  {this.configuration["Application:Version"]} end");
+                //this.mongoDbClient.SetDatabase("emptool");
+                this.mongoDbClient.AddDocument("emptool", "student");
             });
 
         } // Run(...)
 
-
-
-    } // public class DummyApplication : IDummyApplication
+    } // public class DummyMongoDbClientApplication : IDummyApplication
 
 } // namespace Impulse.Applications
