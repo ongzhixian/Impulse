@@ -12,7 +12,7 @@
 
     public class MicroWebApplication : IApplication
     {
-        public void Run(string[] args)
+        public System.Threading.Tasks.Task RunAsync(string[] args)
         {
             Console.WriteLine("Hello from micro web application");
 
@@ -47,7 +47,7 @@
 
             var runner = builder.UseStartup<MicroWebApplicationStartup>().Build();
 
-            runner.Run();
+            return runner.RunAsync();
 
         } // public void Run(string[] args)
     } // public class MicroWebApplication : IApplication

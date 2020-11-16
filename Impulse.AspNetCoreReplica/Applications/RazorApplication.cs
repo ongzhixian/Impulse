@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Impulse.Applications
 {
     public class RazorApplication : IApplication
     {
-        public void Run(string[] args)
+        public Task RunAsync(string[] args)
         {
             string targetProjectDirectory = AppContext.BaseDirectory;
             string rootNamespace = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetTempFileName()).ToLowerInvariant();
@@ -45,8 +46,10 @@ namespace Impulse.Applications
 @using System
 @using System.Threading.Tasks");
 
+            });
 
-
+            return Task.Run(() => {
+                Console.WriteLine("Do nothing");
             });
 
         } // public void Run(string[] args)

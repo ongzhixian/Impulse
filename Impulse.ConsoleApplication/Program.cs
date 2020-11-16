@@ -83,7 +83,7 @@
             {
                 logger.LogInformation("{EventId}", ProgramEvents.APPLICATION_START);
 
-                serviceProvider.GetService<IApplication>().Run(args);
+                serviceProvider.GetService<IApplication>().RunAsync(args);
 
                 logger.LogInformation("{EventId}", ProgramEvents.APPLICATION_END);
             }

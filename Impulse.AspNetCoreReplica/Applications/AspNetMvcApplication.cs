@@ -6,10 +6,11 @@
     using NLog.Web;
     using System;
     using System.IO;
+    using System.Threading.Tasks;
 
     public class AspNetMvcApplication : IApplication
     {
-        public void Run(string[] args)
+        public Task RunAsync(string[] args)
         {
             Console.WriteLine("Hello from ASP.NET Core MVC web application");
 
@@ -32,7 +33,8 @@
 
             IWebHost runner = builder.UseStartup<AspNetMvcApplicationStartup>().Build();
 
-            runner.Run();
+            return runner.RunAsync();
+            
         } // public void Run(string[] args)
     } // public class AspNetMvcApplication : IApplication
 } // namespace Impulse.Applications

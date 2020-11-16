@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
     using System;
+    using System.Threading.Tasks;
 
     public interface IDummyWebApplication : IApplication
     {
@@ -10,11 +11,12 @@
 
     public class DummyWebApplication : IDummyWebApplication
     {
-        public void Run(string[] args)
+        public Task RunAsync(string[] args)
         {
             Console.WriteLine("Hello from dummy web application");
 
-            WebHost.CreateDefaultBuilder(args).UseStartup<DummyWebApplicationStartup>().Build().Run();
+            return WebHost.CreateDefaultBuilder(args).UseStartup<DummyWebApplicationStartup>().Build().RunAsync();
         }
+
     }
 } // namespace Impulse.Applications
