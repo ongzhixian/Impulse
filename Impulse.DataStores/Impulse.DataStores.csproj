@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Impulse.DataStores.MongoDb\Impulse.DataStores.MongoDb.csproj" />
+    <ProjectReference Include="..\Impulse.DataStores.Sqlite\Impulse.DataStores.Sqlite.csproj" />
   </ItemGroup>
 
   <ItemGroup>

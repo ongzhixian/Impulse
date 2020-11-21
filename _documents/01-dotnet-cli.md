@@ -113,6 +113,12 @@ dotnet sln add Impulse.DataStores.MongoDb.Tests
 dotnet add Impulse.DataStores.MongoDb.Tests reference Impulse.DataStores.MongoDb
 
 
+dotnet new classlib --name Impulse.DataStores.Sqlite
+dotnet new mstest --name Impulse.DataStores.Sqlite.Tests
+dotnet sln add Impulse.DataStores.Sqlite
+dotnet sln add Impulse.DataStores.Sqlite.Tests
+dotnet add Impulse.DataStores.Sqlite.Tests reference Impulse.DataStores.Sqlite
+
 
 dotnet new angular --name Impulse.AngularHost
 dotnet new mstest --name Impulse.AngularHost.Tests
