@@ -7,6 +7,7 @@
     using Impulse.Common.Models;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using NLog.Extensions.Logging;
     using Serilog;
@@ -24,6 +25,58 @@
             // Intentionally left empty to fix Sonar (S1118)
         }
 
+        static ILogger GetProgramLogger()
+        {
+            using (ILoggerFactory loggerFactory = LoggerFactory.Create(_ =>
+            {
+                _.SetMinimumLevel(LogLevel.Information);
+                _.AddConsole();
+            })) return loggerFactory.CreateLogger(typeof(Program));
+        }
+
+        //static void ConfigureHost(IConfigurationBuilder configurationBuilder)
+        //{
+
+        //    configurationBuilder.SetBasePath(Directory.GetCurrentDirectory());
+        //    configurationBuilder.AddJsonFile("appsettings.json", true, true);
+        //    configurationBuilder.AddJsonFile("appsecrets.json", true, true);
+        //    configurationBuilder.AddEnvironmentVariables();
+
+        //    // ZX: Erm, yeah how am I going to get this? KIV
+        //    // configurationBuilder.AddCommandLine(args);
+        //}
+
+        public static async Task xxxMain(string[] args)
+        {
+            ILogger logger = GetProgramLogger();
+
+            logger.LogInformation("{EventId} Program starting. ", ProgramEvents.PROGRAM_START);
+
+            HostBuilder hostBuilder = new HostBuilder();
+
+            logger.LogInformation("Getting configuration settings.");
+
+            hostBuilder.ConfigureHostConfiguration(_ =>
+            {
+                _.SetBasePath(Directory.GetCurrentDirectory());
+                _.AddJsonFile("appsettings.json", true, true);
+                _.AddJsonFile("appsecrets.json", true, true);
+                _.AddEnvironmentVariables();
+                _.AddCommandLine(args);
+            });
+
+            // ZX: Some to take note of
+            //hostBuilder.ConfigureAppConfiguration()
+
+            await hostBuilder.RunConsoleAsync();
+
+            logger.LogInformation("{EventId} Program end. ", ProgramEvents.PROGRAM_END);
+
+            Console.WriteLine("Press <ENTER> key to terminate program.");
+            Console.ReadLine();
+        }
+
+        
         static void Main(string[] args)
         {
             ILogger logger;
