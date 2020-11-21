@@ -2,6 +2,7 @@
 using System;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
+using System.Collections.Generic;
 
 namespace Impulse.DataStores.MongoDb
 {
@@ -25,7 +26,6 @@ namespace Impulse.DataStores.MongoDb
                 client = new MongoClient(connectionString);
             }
 
-            
         }
 
         public void SetDatabase(string databaseName)
@@ -60,6 +60,85 @@ namespace Impulse.DataStores.MongoDb
         } // void Connect()
 
 
+
+        public void AddDocument(string databaseName, string collectionName, IDictionary<string, object> document)
+        {
+            IMongoDatabase database = client.GetDatabase(databaseName);
+
+            IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>(collectionName);
+
+            collection.InsertOne(new BsonDocument(document));
+        }
+
+        public void AddDocuments(string databaseName, string collectionName, IList<IDictionary<string, object>> docObjects)
+        {
+            IMongoDatabase database = client.GetDatabase(databaseName);
+
+            IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>(collectionName);
+
+            IList<BsonDocument> documents = new List<BsonDocument>();
+
+            foreach (IDictionary<string, object> item in docObjects)
+            {
+                documents.Add(new BsonDocument(item));
+            }
+
+            collection.InsertMany(documents);
+        }
+
+        public IList<BsonDocument> GetDocuments(string databaseName, string collectionName)
+        {
+            IMongoDatabase database = client.GetDatabase(databaseName);
+
+            IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>(collectionName);
+
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Empty;
+
+            IList<BsonDocument> result = collection.Find(filter).ToList();
+
+            //result[0].Elements
+            //Count = 6
+            //[0]: { _id = 5fb8a288381d053ee77b413a}
+            //[1]: {item=canvas
+            //}
+            //[2]: {qty=500}
+            //[3]: {scores=[{ "type" : "exam", "score" : 60 }, { "type" : "quiz", "score" : 50 }, { "type" : "assignment1", "score" : 43 }]}
+            //[4]: {size={ "h" : 28, "w" : 35.5, "uom" : "cm" }}
+            //[5]: {tags=[asd, asd]}
+
+            
+            return result;
+        }
+
+
+        public IList<BsonDocument> GetDocument(string databaseName, string collectionName)
+        {
+            IMongoDatabase database = client.GetDatabase(databaseName);
+
+            IMongoCollection<BsonDocument> collection = database.GetCollection<BsonDocument>(collectionName);
+
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Empty;
+            filter = Builders<BsonDocument>.Filter.And(filter, Builders<BsonDocument>.Filter.Eq("status", "D"));
+
+
+
+            //Builders<BsonDocument>.Filter.Eq("status", "D");
+            //Builders<BsonDocument>.Filter.Eq("status", "D");
+            //Builders<BsonDocument>.Filter.Eq("item", "planner");
+
+            //FilterDefinition nameFilter = Builders.Filter.Eq(x => x.Author, "Justine Picardie");
+            //FilterDefinition inStockFilter = Builders.Filter.Eq(x => x.InStock, true);
+            //FilterDefinition combineFilters = Builders.Filter.And(nameFilter, inStockFilter);
+
+
+            IList<BsonDocument> result = collection.Find(filter).ToList();
+
+            return result;
+
+        }
+
+
+        [Obsolete]
         public void AddDocument(string databaseName, string collectionName)
         {
             IMongoDatabase database = client.GetDatabase(databaseName);
@@ -80,11 +159,9 @@ namespace Impulse.DataStores.MongoDb
                 { "class_id", 480}
             };
 
-            
             collection.InsertOne(document);
-
-            
         }
+
 
     } // class MongoDbClient : IMongoDbClient
 } // namespace Impulse.DataStores.MongoDb

@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Impulse.DataStores.MongoDb\Impulse.DataStores.MongoDb.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>
