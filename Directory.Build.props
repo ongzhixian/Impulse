@@ -11,5 +11,7 @@
     
     <NeutralLanguage>en</NeutralLanguage>
     
+    <LangVersion>latest</LangVersion>
+    
   </PropertyGroup>
 </Project>
