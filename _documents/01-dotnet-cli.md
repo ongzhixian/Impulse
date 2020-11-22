@@ -136,6 +136,20 @@ dotnet add Impulse.AngularHost package Microsoft.Data.Sqlite
 dotnet add Impulse.AngularHost package Microsoft.AspNetCore.Authentication.JwtBearer
 
 
+dotnet new classlib --name Impulse.Domains
+dotnet new mstest --name Impulse.Domains.Tests
+dotnet sln add Impulse.Domains
+dotnet sln add Impulse.Domains.Tests
+dotnet add Impulse.Domains.Tests reference Impulse.Domains
+
+
+dotnet new classlib --name Impulse.Domains.Inventory
+dotnet new mstest --name Impulse.Domains.Inventory.Tests
+dotnet sln add Impulse.Domains.Inventory
+dotnet sln add Impulse.Domains.Inventory.Tests
+dotnet add Impulse.Domains.Inventory.Tests reference Impulse.Domains.Inventory
+dotnet add Impulse.Domains reference Impulse.Domains.Inventory
+
 
 
 # 1 Create global.json 
