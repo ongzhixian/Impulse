@@ -119,6 +119,12 @@ dotnet sln add Impulse.DataStores.Sqlite
 dotnet sln add Impulse.DataStores.Sqlite.Tests
 dotnet add Impulse.DataStores.Sqlite.Tests reference Impulse.DataStores.Sqlite
 
+dotnet new classlib --name Impulse.MachineLearning
+dotnet new mstest --name Impulse.MachineLearning.Tests
+dotnet sln add Impulse.MachineLearning
+dotnet sln add Impulse.MachineLearning.Tests
+dotnet add Impulse.MachineLearning.Tests reference Impulse.MachineLearning
+
 
 dotnet new angular --name Impulse.AngularHost
 dotnet new mstest --name Impulse.AngularHost.Tests
