@@ -151,6 +151,12 @@ dotnet add Impulse.Domains.Inventory.Tests reference Impulse.Domains.Inventory
 dotnet add Impulse.Domains reference Impulse.Domains.Inventory
 
 
+dotnet new react --name Impulse.ReactHost
+dotnet new mstest --name Impulse.ReactHost.Tests
+dotnet sln add Impulse.ReactHost
+dotnet sln add Impulse.ReactHost.Tests
+dotnet add Impulse.ReactHost.Tests reference Impulse.ReactHost
+
 
 # 1 Create global.json 
 dotnet new globaljson --sdk-version 2.1.518
