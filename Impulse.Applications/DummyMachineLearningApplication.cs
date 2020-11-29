@@ -26,9 +26,26 @@
 
         public async Task RunAsync(string[] args)
         {
+
+            IApplication app = null;
+
             logger.LogInformation("Application start");
 
-            IApplication app = new InferNetExample();
+            //Console.WriteLine("Demonstrating InferNetExample");
+
+            //app = new InferNetExample();
+
+            //await app.RunAsync(args);
+
+            //Console.WriteLine("Demonstrating HousePricePredictionExample");
+
+            //app = new HousePricePredictionExample();
+
+            //await app.RunAsync(args);
+
+            Console.WriteLine("Demonstrating BinaryClassificationExample");
+
+            app = new BinaryClassificationExample();
 
             await app.RunAsync(args);
 

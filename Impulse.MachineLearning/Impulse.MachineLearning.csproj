@@ -5,12 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ML" Version="1.5.2" />
     <PackageReference Include="Microsoft.ML.Probabilistic.Compiler" Version="0.3.1912.403" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Impulse.Common\Impulse.Common.csproj" />
     <ProjectReference Include="..\Impulse.Logging\Impulse.Logging.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="data\wikipedia-detox-250-line-data.tsv.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
