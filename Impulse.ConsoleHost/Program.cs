@@ -154,7 +154,7 @@
                 logger.LogInformation("{EventId}", ApplicationEvents.APPLICATION_START);
 
 
-                serviceProvider.GetService<IApplication>().Run(args);
+                serviceProvider.GetService<IApplication>().RunAsync(args);
 
                 logger.LogInformation("{EventId}", ApplicationEvents.APPLICATION_END);
             }

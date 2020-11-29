@@ -27,7 +27,7 @@
             //DemoLogging();
         } // public DummyAwsClientApplication(...)
 
-        public async Task Run(string[] args)
+        public async Task RunAsync(string[] args)
         {
             logger.LogInformation("{process} {operationState}", this, OperationState.Start);
 

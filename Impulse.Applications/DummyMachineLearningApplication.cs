@@ -1,5 +1,7 @@
 ﻿namespace Impulse.Applications
 {
+    using Impulse.Common;
+    using Impulse.MachineLearning;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using System;
@@ -22,16 +24,15 @@
         }
 
 
-        public Task Run(string[] args)
+        public async Task RunAsync(string[] args)
         {
-            return Task.Run(() =>
-            {
-                logger.LogInformation("Application start");
+            logger.LogInformation("Application start");
 
+            IApplication app = new InferNetExample();
 
-                
-                logger.LogInformation("Application end");
-            });
+            await app.RunAsync(args);
+
+            logger.LogInformation("Application end");
 
         } // Run(...)
 

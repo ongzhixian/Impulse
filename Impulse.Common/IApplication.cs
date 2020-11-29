@@ -4,7 +4,7 @@
 
     public interface IApplication
     {
-        Task Run(string[] args);
+        Task RunAsync(string[] args);
 
         // Reference this for Microsoft.AspNetCore 2.2.0
         // https://github.com/dotnet/aspnetcore/tree/0c2ee920a17fc11ecc6b5fe8febe330262a2d69b

@@ -1,7 +1,9 @@
 ﻿namespace Impulse.Common
 {
     using System.Threading.Tasks;
-    public interface IAbstractApplication
+
+    // Not sure if this is still needed; keep for now
+    public interface IRunnableTask 
     {
         Task Run(string[] args);
 
