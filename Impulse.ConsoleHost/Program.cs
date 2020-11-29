@@ -1,6 +1,5 @@
 ﻿namespace Impulse.ConsoleHost
 {
-    using Impulse.Applications;
     using Impulse.Common;
     using Impulse.Common.Constants;
     using Impulse.Common.Extensions;
@@ -152,11 +151,12 @@
 
             using (var serviceProvider = services.BuildServiceProvider())
             {
-                logger.LogInformation("{EventId}", ProgramEvents.APPLICATION_START);
+                logger.LogInformation("{EventId}", ApplicationEvents.APPLICATION_START);
+
 
                 serviceProvider.GetService<IApplication>().Run(args);
 
-                logger.LogInformation("{EventId}", ProgramEvents.APPLICATION_END);
+                logger.LogInformation("{EventId}", ApplicationEvents.APPLICATION_END);
             }
 
             logger.LogInformation("{EventId} Program end. ", ProgramEvents.PROGRAM_END);

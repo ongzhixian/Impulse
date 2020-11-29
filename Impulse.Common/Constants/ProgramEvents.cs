@@ -4,8 +4,5 @@
     {
         PROGRAM_START,
         PROGRAM_END,
-
-        APPLICATION_START,
-        APPLICATION_END
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Impulse.Applications
 {
+    using Impulse.Common;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using System;

@@ -95,7 +95,7 @@
                 {
                     try
                     {
-                        implementationTypeAssemblyName = serviceConfiguration.Service.Substring(0, serviceConfiguration.Implementation.LastIndexOf('.'));
+                        implementationTypeAssemblyName = serviceConfiguration.Implementation.Substring(0, serviceConfiguration.Implementation.LastIndexOf('.'));
                         //implementationTypeAssemblyName = serviceConfiguration.Implementation.Substring(0, serviceConfiguration.Implementation.LastIndexOf('.'));
                         implementationTypeName = serviceConfiguration.Implementation.Trim();
                     }

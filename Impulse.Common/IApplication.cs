@@ -1,6 +1,7 @@
-﻿namespace Impulse.Applications
+﻿namespace Impulse.Common
 {
     using System.Threading.Tasks;
+
     public interface IApplication
     {
         Task Run(string[] args);

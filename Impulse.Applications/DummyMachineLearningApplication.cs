@@ -28,16 +28,8 @@
             {
                 logger.LogInformation("Application start");
 
-                //sqliteClient.CreateDatabase();
 
-                //sqliteClient.CreateTable();
-
-                //sqliteClient.DropTable();
-
-                //sqliteClient.SeedData();
-
-                // sqliteClient.GetData();
-
+                
                 logger.LogInformation("Application end");
             });
 
