@@ -26,7 +26,7 @@ namespace Impulse.Applications
 
         } // public DummyApplication(...)
 
-        public Task RunAsync(string[] args)
+        public Task Run(string[] args)
         {
             return Task.Run(() =>
             {

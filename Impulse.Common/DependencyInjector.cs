@@ -96,6 +96,7 @@
                     try
                     {
                         implementationTypeAssemblyName = serviceConfiguration.Service.Substring(0, serviceConfiguration.Implementation.LastIndexOf('.'));
+                        //implementationTypeAssemblyName = serviceConfiguration.Implementation.Substring(0, serviceConfiguration.Implementation.LastIndexOf('.'));
                         implementationTypeName = serviceConfiguration.Implementation.Trim();
                     }
                     catch (Exception ex)
@@ -104,6 +105,22 @@
                             serviceConfiguration.Implementation, serviceLifetime);
                         continue;
                     }
+                }
+
+                try
+                {
+                    if (!assemblyDictionary.ContainsKey(implementationTypeAssemblyName))
+                    {
+                        foreach (string key in assemblyDictionary.Keys)
+                        {
+                            Console.WriteLine(key);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
                 }
 
                 Type implementationType = assemblyDictionary[implementationTypeAssemblyName]?.ExportedTypes.FirstOrDefault(r => r.FullName == implementationTypeName);
