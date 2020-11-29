@@ -1,0 +1,16 @@
+{
+  "name": "impulse.nodehost",
+  "version": "1.0.0",
+  "description": "Impulse.NodeHost",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Impulse",
+    "NodeHost"
+  ],
+  "author": "ONG ZHI XIAN",
+  "license": "ISC"
+}
