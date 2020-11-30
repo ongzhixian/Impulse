@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Hosting;
     using System;
     using System.Threading.Tasks;
+    using Impulse.Common;
 
     public interface IDummyWebApplication : IApplication
     {

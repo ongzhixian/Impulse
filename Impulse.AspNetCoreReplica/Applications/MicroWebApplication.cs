@@ -9,6 +9,7 @@
     using System.Reflection;
     using NLog.Web;
     using Serilog;
+    using Impulse.Common;
 
     public class MicroWebApplication : IApplication
     {
