@@ -23,3 +23,8 @@ dotnet tool install -g mlnet
 dotnet tool install -g Cake.Tool
 
 dotnet cake --target=Publish
+
+
+### Templates for GtkSharp
+
+dotnet new --install GtkSharp.Template.CSharp
