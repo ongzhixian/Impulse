@@ -81,11 +81,11 @@
 
             using (var serviceProvider = services.BuildServiceProvider())
             {
-                logger.LogInformation("{EventId}", ProgramEvents.APPLICATION_START);
+                logger.LogInformation("{EventId}", ProgramEvents.PROGRAM_START);
 
                 serviceProvider.GetService<IApplication>().RunAsync(args);
 
-                logger.LogInformation("{EventId}", ProgramEvents.APPLICATION_END);
+                logger.LogInformation("{EventId}", ProgramEvents.PROGRAM_END);
             }
 
             logger.LogInformation("{EventId} Program end. ", ProgramEvents.PROGRAM_END);
