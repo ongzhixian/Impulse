@@ -9,7 +9,7 @@
         "ScopedServices": [
             {
                 "Service": "Impulse.Common.IApplication",
-                "Implementation": "Impulse.Applications.UDPClientApplication"
+                "Implementation": "Impulse.Applications.UdpClientApplication"
             }
         ],
         "SingletonServices": [

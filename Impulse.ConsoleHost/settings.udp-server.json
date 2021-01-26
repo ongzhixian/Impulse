@@ -1,15 +1,21 @@
 {
     "Application": {
         "Version": "1.0",
-        "Name": "udp-client"
+        "Name": "udp-client",
+        "Broadcast": {
+            "IPAddress": "192.168.1.255",
+            "Port": 11000
+        }
+
     },
+
     "DependencyInjection": {
         "TransientServices": [
         ],
         "ScopedServices": [
             {
                 "Service": "Impulse.Common.IApplication",
-                "Implementation": "Impulse.Applications.UDPServerApplication"
+                "Implementation": "Impulse.Applications.UdpServerApplication"
             }
         ],
         "SingletonServices": [
