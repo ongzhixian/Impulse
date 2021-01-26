@@ -45,7 +45,7 @@ namespace Impulse.AngularHost.Controllers
                 Username = login.Username
             });
             
-            return Unauthorized();
+            //return Unauthorized();
         }
 
         [HttpGet]

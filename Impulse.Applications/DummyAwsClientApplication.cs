@@ -27,16 +27,18 @@
             //DemoLogging();
         } // public DummyAwsClientApplication(...)
 
-        public async Task RunAsync(string[] args)
+        public Task Run(string[] args)
         {
-            logger.LogInformation("{process} {operationState}", this, OperationState.Start);
+            return Task.Run(() =>
+            {
+                logger.LogInformation("{process} {operationState}", this, OperationState.Start);
 
-            // await DynamoDbDemoAsync();
+                // await DynamoDbDemoAsync();
 
-            sesClient.Send();
+                sesClient.Send();
 
-            logger.LogInformation("{process} {operationState}", this, OperationState.End);
-
+                logger.LogInformation("{process} {operationState}", this, OperationState.End);
+            });
         } // Run(...)
 
         private async Task DynamoDbDemoAsync()

@@ -24,7 +24,7 @@
         }
 
 
-        public async Task RunAsync(string[] args)
+        public async Task Run(string[] args)
         {
 
             IApplication app = null;
@@ -47,7 +47,7 @@
 
             app = new BinaryClassificationExample();
 
-            await app.RunAsync(args);
+            await app.Run(args);
 
             logger.LogInformation("Application end");
 

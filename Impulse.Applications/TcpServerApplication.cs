@@ -1,4 +1,4 @@
-namespace Impulse.Applications
+﻿namespace Impulse.Applications
 {
     using Impulse.Common;
     using Microsoft.Extensions.Configuration;
@@ -6,26 +6,17 @@ namespace Impulse.Applications
     using System;
     using System.Threading.Tasks;
 
-    public class ApplicationDomainApplication : IApplication
+    public class TcpServerApplication : IApplication
     {
         private readonly ILogger logger;
         private readonly IConfiguration configuration;
 
-        public ApplicationDomainApplication(ILogger<DummyApplication> logger, IConfiguration configuration)
+        public TcpServerApplication(ILogger<TcpServerApplication> logger, IConfiguration configuration)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            
-            Console.WriteLine("Creating new AppDomain.");
-            
-            // ZX: This code does not work in .NET Core 
-            // AppDomains are not supported in .NET Core
-            AppDomain domain = AppDomain.CreateDomain("MyDomain");
 
-            Console.WriteLine("Host domain: " + AppDomain.CurrentDomain.FriendlyName);
-            Console.WriteLine("child domain: " + domain.FriendlyName);
-
-        } // public DummyApplication(...)
+        } // public TcpServerApplication(...)
 
         public Task Run(string[] args)
         {
@@ -40,6 +31,5 @@ namespace Impulse.Applications
             
         } // Run(...)
 
-
-    } // public class DummyApplication : IDummyApplication
+    } // public class TcpServerApplication : IApplication
 } // namespace Impulse.Applications

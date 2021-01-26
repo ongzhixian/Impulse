@@ -21,7 +21,7 @@ namespace Impulse.MachineLearning
         private static readonly string dataFileSourceUrl = @"https://github.com/dotnet/machinelearning-samples/raw/master/samples/csharp/getting-started/BinaryClassification_SentimentAnalysis/SentimentAnalysis/Data/wikiDetoxAnnotated40kRows.tsv";
   
 
-        public Task RunAsync(string[] args)
+        public Task Run(string[] args)
         {
             // Get data file if we do not have it; so that we do not have to check in data files
             if (!System.IO.File.Exists(dataFilePath))

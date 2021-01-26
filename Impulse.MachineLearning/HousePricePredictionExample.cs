@@ -10,7 +10,7 @@ namespace Impulse.MachineLearning
 {
     public class HousePricePredictionExample : IApplication
     {
-        public Task RunAsync(string[] args)
+        public Task Run(string[] args)
         {
             return Task.Run(() =>
             {

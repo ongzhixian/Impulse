@@ -26,7 +26,7 @@
         }
 
 
-        public Task RunAsync(string[] args)
+        public Task Run(string[] args)
         {
             return Task.Run(() =>
             {
@@ -42,7 +42,7 @@
 
                 IList<MongoDB.Bson.BsonDocument> s = this.mongoDbClient.GetDocument("emptool", "inventory");
 
-                string sa = "";
+                //string sa = "";
 
                 //System.Data.Common.DbDataRecord
                 //System.Data.DataRow

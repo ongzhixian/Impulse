@@ -1,0 +1,18 @@
+{
+    "Application": {
+        "Version": "1.0",
+        "Name": "tcp-server"
+    },
+    "DependencyInjection": {
+        "TransientServices": [
+        ],
+        "ScopedServices": [
+            {
+                "Service": "Impulse.Common.IApplication",
+                "Implementation": "Impulse.Applications.TcpServerApplication"
+            }
+        ],
+        "SingletonServices": [
+        ]
+    }
+}

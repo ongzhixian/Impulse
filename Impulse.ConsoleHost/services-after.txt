@@ -1,0 +1,10 @@
+Singleton Microsoft.Extensions.Configuration.IConfiguration   Microsoft.Extensions.Configuration.ConfigurationRoot
+Singleton Microsoft.Extensions.Options.IOptions`1[TOptions]  Microsoft.Extensions.Options.OptionsManager`1[TOptions] 
+Singleton Microsoft.Extensions.Options.IOptionsMonitor`1[TOptions]  Microsoft.Extensions.Options.OptionsMonitor`1[TOptions] 
+Singleton Microsoft.Extensions.Options.IOptionsMonitorCache`1[TOptions]  Microsoft.Extensions.Options.OptionsCache`1[TOptions] 
+Singleton Microsoft.Extensions.Logging.ILoggerFactory  Microsoft.Extensions.Logging.LoggerFactory 
+Singleton Microsoft.Extensions.Logging.ILogger`1[TCategoryName]  Microsoft.Extensions.Logging.Logger`1[T] 
+Singleton Microsoft.Extensions.Options.IConfigureOptions`1[Microsoft.Extensions.Logging.LoggerFilterOptions]   Microsoft.Extensions.Logging.DefaultLoggerLevelConfigureOptions
+Singleton Microsoft.Extensions.Logging.ILoggerProvider System.Func`2[System.IServiceProvider,NLog.Extensions.Logging.NLogLoggerProvider]  
+Scoped Microsoft.Extensions.Options.IOptionsSnapshot`1[TOptions]  Microsoft.Extensions.Options.OptionsManager`1[TOptions] 
+Transient Microsoft.Extensions.Options.IOptionsFactory`1[TOptions]  Microsoft.Extensions.Options.OptionsFactory`1[TOptions] 
