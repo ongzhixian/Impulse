@@ -33,12 +33,7 @@
                     System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient();
                     udpClient.Client.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Socket, System.Net.Sockets.SocketOptionName.ReuseAddress, true);
                     udpClient.JoinMulticastGroup(socketIPAddress, System.Net.IPAddress.Any);
-                    //udpClient.Connect(new System.Net.IPEndPoint(System.Net.IPAddress., socketPort));
                     udpClient.Client.Bind(new System.Net.IPEndPoint(System.Net.IPAddress.Any, socketPort));
-
-                    
-
-
 
                     const int BUFFER_LENGTH = 1024 * 64; // To handler messages from zero bytes up to 64KB
                                                          //byte[] bufferByteArray = new byte[BUFFER_LENGTH];
