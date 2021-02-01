@@ -12,7 +12,7 @@
 
     public class DummyWebApplication : IDummyWebApplication
     {
-        public Task RunAsync(string[] args)
+        public Task Run(string[] args)
         {
             Console.WriteLine("Hello from dummy web application");
 

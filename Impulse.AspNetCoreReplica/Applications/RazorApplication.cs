@@ -11,7 +11,7 @@ namespace Impulse.Applications
 {
     public class RazorApplication : IApplication
     {
-        public Task RunAsync(string[] args)
+        public Task Run(string[] args)
         {
             string targetProjectDirectory = AppContext.BaseDirectory;
             string rootNamespace = System.IO.Path.GetFileNameWithoutExtension(System.IO.Path.GetTempFileName()).ToLowerInvariant();

@@ -13,7 +13,7 @@
 
     public class MicroWebApplication : IApplication
     {
-        public System.Threading.Tasks.Task RunAsync(string[] args)
+        public System.Threading.Tasks.Task Run(string[] args)
         {
             Console.WriteLine("Hello from micro web application");
 
