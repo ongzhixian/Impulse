@@ -11,7 +11,7 @@
 
     public class AspNetMvcApplication : IApplication
     {
-        public Task RunAsync(string[] args)
+        public Task Run(string[] args)
         {
             Console.WriteLine("Hello from ASP.NET Core MVC web application");
 
