@@ -353,3 +353,4 @@ MigrationBackup/
 .vscode
 .idea
 appsecrets.json
+app-secrets.json
