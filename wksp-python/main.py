@@ -4,7 +4,7 @@
 
 import logging
 from helpers.app_logging import setup_logging, print_test_log_messages
-from modules.gcloud import get_topic_path, publish_to_topic, test_publish_to_topic, create_subscription
+from modules.gcloud import get_topic_path, publish_to_topic, test_publish_to_topic, create_subscription, subscribe
 # from modules import *
 # from api import *
 # from pages import *
@@ -13,6 +13,10 @@ from modules.gcloud import get_topic_path, publish_to_topic, test_publish_to_top
 ################################################################################
 # Main function
 ################################################################################
+
+def on_receive(message):
+    logging.info(message)
+    message.ack()
 
 if __name__ == '__main__':
     setup_logging()
@@ -27,7 +31,9 @@ if __name__ == '__main__':
     
     #test_publish_to_topic()
     
-    create_subscription(project_id, topic_id, subscription_id)
+    #create_subscription(project_id, topic_id, subscription_id)
+
+    subscribe(project_id, subscription_id, on_receive)
     
     
     logging.info("[PROGRAM END]")

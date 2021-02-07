@@ -1,8 +1,25 @@
 import logging
+from time import sleep
 from google.cloud import pubsub_v1
 
 publisher = pubsub_v1.PublisherClient()
 subscriber = pubsub_v1.SubscriberClient()
+
+
+def subscribe(project_id, subscription_id, callback_function):
+    timeout = 5.0
+    subscription_path = get_subscription_path(project_id, subscription_id)
+    streaming_pull_future = subscriber.subscribe(subscription_path, callback=callback_function)
+    with subscriber:
+        try:
+            # When `timeout` is not set, result() will block indefinitely,
+            # unless an exception is encountered first.
+            #streaming_pull_future.result(timeout=timeout)
+            streaming_pull_future.result()
+        except TimeoutError:
+            streaming_pull_future.cancel()
+        return streaming_pull_future
+
 
 def create_subscription(project_id, topic_id, subscription_id):
     topic_path = get_topic_path(project_id, topic_id)
@@ -55,4 +72,5 @@ def test_publish_to_topic():
     for n in range(1, 10):
         data = "Message number {}".format(n)
         publish_to_topic(topic_path, data)
+        sleep(1.67) # Sleep for 1.67 secpmds
     logging.info(f"Published messages to {topic_path}.")
