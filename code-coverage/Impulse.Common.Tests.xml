@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CoverageParams>
+    <TargetArguments>Impulse.Common.Tests.dll </TargetArguments>
+    <TargetWorkingDir>C:\src\github.com\ongzhixian\impulse\code\Impulse.Common.Tests\bin\Debug\netcoreapp2.1\</TargetWorkingDir>
+    <Output>Impulse.Common.Tests.dcvr</Output>
+</CoverageParams>
+

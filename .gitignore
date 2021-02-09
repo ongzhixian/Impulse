@@ -354,3 +354,8 @@ MigrationBackup/
 .idea
 appsecrets.json
 app-secrets.json
+
+# ZX dotCover
+*.dcvr
+**/_coverage_report.html
+**/_coverage_report

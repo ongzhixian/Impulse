@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MergeParams>
+    <Source>Impulse.Common.Tests.dcvr</Source>
+    <!-- <Source>GlobalBlue.CCH2.ExternalValidation.Common.Tests.dcvr</Source> -->
+    <Output>_merged_coverage_snapshots.dcvr</Output>
+</MergeParams>
