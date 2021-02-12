@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    public interface IApplication
+    public interface IApplication //: Microsoft.Extensions.Hosting.IHostedService
     {
         Task Run(string[] args);
 

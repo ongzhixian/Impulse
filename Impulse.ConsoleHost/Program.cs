@@ -17,6 +17,7 @@
     using System.Threading.Tasks;
     using ILogger = Microsoft.Extensions.Logging.ILogger;
 
+
     class Program
     {
         protected Program()
@@ -32,49 +33,6 @@
                 _.AddConsole();
             })) return loggerFactory.CreateLogger(typeof(Program));
         }
-
-        //static void ConfigureHost(IConfigurationBuilder configurationBuilder)
-        //{
-
-        //    configurationBuilder.SetBasePath(Directory.GetCurrentDirectory());
-        //    configurationBuilder.AddJsonFile("appsettings.json", true, true);
-        //    configurationBuilder.AddJsonFile("appsecrets.json", true, true);
-        //    configurationBuilder.AddEnvironmentVariables();
-
-        //    // ZX: Erm, yeah how am I going to get this? KIV
-        //    // configurationBuilder.AddCommandLine(args);
-        //}
-
-        public static async Task xxxMain(string[] args)
-        {
-            ILogger logger = GetProgramLogger();
-
-            logger.LogInformation("{EventId} Program starting. ", ProgramEvents.PROGRAM_START);
-
-            HostBuilder hostBuilder = new HostBuilder();
-
-            logger.LogInformation("Getting configuration settings.");
-
-            hostBuilder.ConfigureHostConfiguration(_ =>
-            {
-                _.SetBasePath(Directory.GetCurrentDirectory());
-                _.AddJsonFile("appsettings.json", true, true);
-                _.AddJsonFile("appsecrets.json", true, true);
-                _.AddEnvironmentVariables();
-                _.AddCommandLine(args);
-            });
-
-            // ZX: Some to take note of
-            //hostBuilder.ConfigureAppConfiguration()
-
-            await hostBuilder.RunConsoleAsync();
-
-            logger.LogInformation("{EventId} Program end. ", ProgramEvents.PROGRAM_END);
-
-            Console.WriteLine("Press <ENTER> key to terminate program.");
-            Console.ReadLine();
-        }
-
         
         static void Main(string[] args)
         {
@@ -145,18 +103,47 @@
 
             logger.LogInformation("Other settings based on config.");
 
-            ServiceCollection services = new ServiceCollection();
+            // Original way to run console
+            //ServiceCollection services = new ServiceCollection();
 
-            Configure(services, logger, configurationSettings);
+            //Configure(services, logger, configurationSettings);
 
-            using (var serviceProvider = services.BuildServiceProvider())
+            //using (var serviceProvider = services.BuildServiceProvider())
+            //{
+            //    logger.LogInformation("{EventId}", ApplicationEvents.APPLICATION_START);
+
+            //    serviceProvider.GetService<IApplication>().Run(args);
+
+            //    logger.LogInformation("{EventId}", ApplicationEvents.APPLICATION_END);
+            //}
+
+            var builder = new HostBuilder();
+
+            builder.ConfigureServices((hostContext, services) =>
             {
-                logger.LogInformation("{EventId}", ApplicationEvents.APPLICATION_START);
+                Configure(services, logger, configurationSettings);
+            });
 
+            IHost host = builder.Build();
 
-                serviceProvider.GetService<IApplication>().Run(args);
+            bool isService = !(Environment.UserInteractive || System.Diagnostics.Debugger.IsAttached);
 
-                logger.LogInformation("{EventId}", ApplicationEvents.APPLICATION_END);
+            if (isService)
+            {
+                host.Services.GetServices(typeof(System.ServiceProcess.ServiceBase));
+                var hostService = new ServiceBaseHost(host.Services.GetRequiredService<ILogger<ServiceBaseHost>>(), host);
+                System.ServiceProcess.ServiceBase.Run(hostService);
+
+                //var servicesToHost = host.Services.GetServices<System.ServiceProcess.ServiceBase>().ToArray();
+                //System.ServiceProcess.ServiceBase.Run(servicesToHost);
+            }
+            else
+            {
+                // Run as console app
+                host.Services.GetService<IApplication>().Run(args);
+
+                //serviceProvider.GetService<IApplication>().Run(args);
+                //host.Run();
             }
 
             logger.LogInformation("{EventId} Program end. ", ProgramEvents.PROGRAM_END);
@@ -295,5 +282,39 @@
 
             logger.LogInformation("Services set.");
         }
+
+        #region Obsolete functions
+        [Obsolete("No longer in used.", true)]
+        public static async Task xxxMain(string[] args)
+        {
+            ILogger logger = GetProgramLogger();
+
+            logger.LogInformation("{EventId} Program starting. ", ProgramEvents.PROGRAM_START);
+
+            HostBuilder hostBuilder = new HostBuilder();
+
+            logger.LogInformation("Getting configuration settings.");
+
+            hostBuilder.ConfigureHostConfiguration(_ =>
+            {
+                _.SetBasePath(Directory.GetCurrentDirectory());
+                _.AddJsonFile("appsettings.json", true, true);
+                _.AddJsonFile("appsecrets.json", true, true);
+                _.AddEnvironmentVariables();
+                _.AddCommandLine(args);
+            });
+
+            // ZX: Some to take note of
+            //hostBuilder.ConfigureAppConfiguration()
+
+            await hostBuilder.RunConsoleAsync();
+
+            logger.LogInformation("{EventId} Program end. ", ProgramEvents.PROGRAM_END);
+
+            Console.WriteLine("Press <ENTER> key to terminate program.");
+            Console.ReadLine();
+        }
+
+        #endregion
     }
 }
