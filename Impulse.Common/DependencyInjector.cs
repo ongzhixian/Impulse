@@ -76,6 +76,25 @@
                     }
                 }
 
+                if (!assemblyDictionary.ContainsKey(serviceTypeAssemblyName))
+                {
+                    try
+                    {
+                        Assembly newlyLoadedAssembly = Assembly.Load(serviceTypeAssemblyName);
+                        assemblyDictionary.Add(serviceTypeAssemblyName, newlyLoadedAssembly);
+                        Console.WriteLine($"Ad-hoc loading of {serviceTypeAssemblyName}");
+                    }
+                    catch (Exception)
+                    {
+                        // Debug only
+                        foreach (string key in assemblyDictionary.Keys)
+                        {
+                            Console.Error.WriteLine(key);
+                        }
+                        throw;
+                    }
+                }
+
                 Type serviceType = assemblyDictionary[serviceTypeAssemblyName]?.ExportedTypes.FirstOrDefault(r => r.FullName == serviceTypeName);
                 if (serviceType == null)
                 {
@@ -107,20 +126,23 @@
                     }
                 }
 
-                try
+                if (!assemblyDictionary.ContainsKey(implementationTypeAssemblyName))
                 {
-                    if (!assemblyDictionary.ContainsKey(implementationTypeAssemblyName))
+                    try
                     {
+                        Assembly newlyLoadedAssembly = Assembly.Load(implementationTypeAssemblyName);
+                        assemblyDictionary.Add(implementationTypeAssemblyName, newlyLoadedAssembly);
+                        Console.WriteLine($"Ad-hoc loading of {implementationTypeAssemblyName}");
+                    }
+                    catch (Exception)
+                    {
+                        // Debug only
                         foreach (string key in assemblyDictionary.Keys)
                         {
                             Console.WriteLine(key);
                         }
+                        throw;
                     }
-                }
-                catch (Exception)
-                {
-
-                    throw;
                 }
 
                 Type implementationType = assemblyDictionary[implementationTypeAssemblyName]?.ExportedTypes.FirstOrDefault(r => r.FullName == implementationTypeName);
