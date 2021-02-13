@@ -71,31 +71,53 @@
                 //    s.SendTo(sendbuf, ep);
                 //}
 
-                int socketPort;                         // Server
-                System.Net.IPAddress socketIPAddress;   // Server
+                //int socketPort;                         // Server
+                //System.Net.IPAddress socketIPAddress;   // Server
 
-                socketPort = 4567;
-                socketIPAddress = System.Net.IPAddress.Parse("224.5.6.7");
+                //socketPort = 4567;
+                //socketIPAddress = System.Net.IPAddress.Parse("224.5.6.7");
 
-                System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient();
-                udpClient.JoinMulticastGroup(socketIPAddress);
-                udpClient.Connect(new System.Net.IPEndPoint(socketIPAddress, socketPort));
+                //System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient();
+                //udpClient.JoinMulticastGroup(socketIPAddress);
+                //udpClient.Connect(new System.Net.IPEndPoint(socketIPAddress, socketPort));
+
+                //bool isRunning = true;
+                //string message = null;
+                //int messageNum = 0;
+
+
+                //while (isRunning)
+                //{
+                //    message = $"Message {messageNum++}";
+
+                //    Console.WriteLine($"Broadcasting [{message}]");
+                //    byte[] bytes = System.Text.Encoding.UTF8.GetBytes(message);
+
+                //    udpClient.Send(bytes, bytes.Length);
+
+                //    System.Threading.Thread.Sleep(1000);
+                //}
+
 
                 bool isRunning = true;
                 string message = null;
                 int messageNum = 0;
 
 
-                while (isRunning)
+                using (var udpClient = Networking.UdpHelper.GetUdpSender("224.5.6.7", 4567))
                 {
-                    message = $"Message {messageNum++}";
 
-                    Console.WriteLine($"Broadcasting [{message}]");
-                    byte[] bytes = System.Text.Encoding.UTF8.GetBytes(message);
+                    while (isRunning)
+                    {
+                        message = $"Message {messageNum++}";
 
-                    udpClient.Send(bytes, bytes.Length);
+                        Console.WriteLine($"Broadcasting [{message}]");
+                        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(message);
 
-                    System.Threading.Thread.Sleep(1000);
+                        udpClient.Send(bytes, bytes.Length);
+
+                        System.Threading.Thread.Sleep(1000);
+                    }
                 }
 
 

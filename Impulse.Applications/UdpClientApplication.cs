@@ -24,30 +24,56 @@
         {
             return Task.Run(() =>
             {
-                System.Net.IPAddress socketIPAddress = System.Net.IPAddress.Parse("224.5.6.7");
-                int socketPort = 4567;
+                
+
 
                 try
                 {
 
-                    System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient();
-                    udpClient.Client.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Socket, System.Net.Sockets.SocketOptionName.ReuseAddress, true);
-                    udpClient.JoinMulticastGroup(socketIPAddress, System.Net.IPAddress.Any);
-                    udpClient.Client.Bind(new System.Net.IPEndPoint(System.Net.IPAddress.Any, socketPort));
+                    //System.Net.IPAddress socketIPAddress = System.Net.IPAddress.Parse("224.5.6.7");
+                    //int socketPort = 4567;
 
+                    //System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient();
+                    //udpClient.Client.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Socket, System.Net.Sockets.SocketOptionName.ReuseAddress, true);
+                    //udpClient.JoinMulticastGroup(socketIPAddress, System.Net.IPAddress.Any);
+                    //udpClient.Client.Bind(new System.Net.IPEndPoint(System.Net.IPAddress.Any, socketPort));
+
+                    //const int BUFFER_LENGTH = 1024 * 64; // To handler messages from zero bytes up to 64KB
+                    //                                     //byte[] bufferByteArray = new byte[BUFFER_LENGTH];
+                    //int bytesReceived;
+
+                    //System.Net.IPEndPoint clientEndpoint = new System.Net.IPEndPoint(0, 0);
+
+                    //while (true)
+                    //{
+                    //    byte[] bufferByteArray = udpClient.Receive(ref clientEndpoint);
+
+                    //    string message = System.Text.Encoding.UTF8.GetString(bufferByteArray).Trim();
+
+                    //    Console.WriteLine($"Bytes received: [{message}]");
+                    //}
+
+
+                    /////
                     const int BUFFER_LENGTH = 1024 * 64; // To handler messages from zero bytes up to 64KB
                                                          //byte[] bufferByteArray = new byte[BUFFER_LENGTH];
                     int bytesReceived;
 
-                    System.Net.IPEndPoint clientEndpoint = new System.Net.IPEndPoint(0, 0);
+                    System.Net.IPEndPoint clientEndpoint = new System.Net.IPEndPoint(System.Net.IPAddress.Any, 0);
 
-                    while (true)
+
+
+                    using (var udpClient = Networking.UdpHelper.GetUdpReceiver("224.5.6.7", 4567))
                     {
-                        byte[] bufferByteArray = udpClient.Receive(ref clientEndpoint);
 
-                        string message = System.Text.Encoding.UTF8.GetString(bufferByteArray).Trim();
+                        while (true)
+                        {
+                            byte[] bufferByteArray = udpClient.Receive(ref clientEndpoint);
 
-                        Console.WriteLine($"Bytes received: [{message}]");
+                            string message = System.Text.Encoding.UTF8.GetString(bufferByteArray).Trim();
+
+                            Console.WriteLine($"Bytes received: [{message}]");
+                        }
                     }
                 }
                 catch (Exception e)
@@ -82,15 +108,15 @@
 
                 //        Console.WriteLine($"Bytes received: {bytesReceived}: [{message}]");
                 //    }
-                    
+
                 //}
                 //catch (Exception)
                 //{
                 //    throw;
                 //}
-                
+
             });
-            
+
         } // Run(...)
 
         public static System.Net.Sockets.Socket CreateUdpMulticastClientSocket(System.Net.IPAddress socketIPAddress, int socketPort)
