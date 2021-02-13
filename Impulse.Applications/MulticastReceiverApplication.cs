@@ -6,17 +6,17 @@
     using System;
     using System.Threading.Tasks;
 
-    public class MulticastClientApplication : IApplication
+    public class MulticastReceiverApplication : IApplication
     {
         private readonly ILogger logger;
         private readonly IConfiguration configuration;
 
-        public MulticastClientApplication(ILogger<MulticastClientApplication> logger, IConfiguration configuration)
+        public MulticastReceiverApplication(ILogger<MulticastReceiverApplication> logger, IConfiguration configuration)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 
-        } // public MulticastClientApplication (...)
+        } // public MulticastReceiverApplication (...)
 
         public Task Run(string[] args)
         {
@@ -31,5 +31,5 @@
             
         } // Run(...)
 
-    } // public class MulticastClientApplication : IApplication
+    } // public class MulticastReceiverApplication : IApplication
 } // namespace Impulse.Applications

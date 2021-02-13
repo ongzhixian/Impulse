@@ -6,12 +6,12 @@
     using System;
     using System.Threading.Tasks;
 
-    public class MulticastServerApplication : IApplication
+    public class MulticastSenderApplication : IApplication
     {
         private readonly ILogger logger;
         private readonly IConfiguration configuration;
 
-        public MulticastServerApplication(ILogger<MulticastServerApplication> logger, IConfiguration configuration)
+        public MulticastSenderApplication(ILogger<MulticastSenderApplication> logger, IConfiguration configuration)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
@@ -22,10 +22,23 @@
         {
             return Task.Run(() =>
             {
-                for (int i = 0; i < 10; i++)
+                bool isRunning = true;
+                string message = null;
+                int messageNum = 0;
+
+                using (var udpClient = Networking.UdpHelper.GetUdpSender("224.5.6.7", 4567))
                 {
-                    logger.LogInformation($"Dummy Application Message {i} {this.configuration["Application:Version"]}");
-                    System.Threading.Thread.Sleep(1000);
+                    while (isRunning)
+                    {
+                        message = $"Message {messageNum++}";
+
+                        Console.WriteLine($"Broadcasting [{message}]");
+                        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(message);
+
+                        udpClient.Send(bytes, bytes.Length);
+
+                        System.Threading.Thread.Sleep(1000);
+                    }
                 }
             });
             

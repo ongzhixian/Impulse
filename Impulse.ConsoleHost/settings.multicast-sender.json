@@ -8,8 +8,8 @@
         ],
         "ScopedServices": [
             {
-                "Service": "Impulse.Applications.IApplication",
-                "Implementation": "Impulse.Applications.DummyAwsClientApplication"
+                "Service": "Impulse.Common.IApplication",
+                "Implementation": "Impulse.Applications.MulticastSenderApplication"
             },
             {
                 "Service": "Impulse.CloudServices.Aws.DynamoDb.IClient, Impulse.CloudServices.Aws",
