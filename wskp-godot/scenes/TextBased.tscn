@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/TextBased.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 159.404
+margin_top = 62.9181
+margin_right = -157.596
+margin_bottom = -64.0819
+color = Color( 0.211765, 0.0862745, 0.0862745, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextArea" type="RichTextLabel" parent="Background"]
+margin_left = 61.946
+margin_top = 57.0273
+margin_right = 649.946
+margin_bottom = 403.027
+bbcode_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Background/TextArea"]
+margin_left = 122.488
+margin_top = -45.1898
+margin_right = 430.488
+margin_bottom = -5.18985
+
+[node name="LineEdit" type="LineEdit" parent="."]
+margin_left = 347.0
+margin_top = 488.0
+margin_right = 701.0
+margin_bottom = 512.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="location" type="RichTextLabel" parent="."]
+margin_left = 364.0
+margin_top = 15.0
+margin_right = 670.0
+margin_bottom = 53.0
+bbcode_enabled = true
+bbcode_text = "Location"
+text = "Location"
+
+[node name="Commands" type="ColorRect" parent="."]
+margin_left = 351.975
+margin_top = 153.893
+margin_right = 667.975
+margin_bottom = 193.893
+color = Color( 0.309804, 0.294118, 0.294118, 1 )
+
+[node name="Label" type="Label" parent="Commands"]
+margin_left = -2.37827
+margin_top = 3.56763
+margin_right = 127.622
+margin_bottom = 43.5676
+text = "Look  Go to  Check"
+__meta__ = {
+"_editor_description_": ""
+}
+[connection signal="text_entered" from="LineEdit" to="." method="_on_LineEdit_text_entered"]

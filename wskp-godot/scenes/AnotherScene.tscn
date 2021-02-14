@@ -1,0 +1,76 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.0823529, 0.258824, 0.627451, 1 )
+border_width_bottom = 8
+border_color = Color( 0.717647, 0.180392, 0.827451, 1 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+draw_center = false
+
+[sub_resource type="DynamicFontData" id=5]
+font_path = "res://assets/fonts/ShareTech-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=6]
+size = 36
+font_data = SubResource( 5 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 49.0
+size_flags_vertical = 0
+custom_styles/panel = SubResource( 4 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+margin_right = 1024.0
+margin_bottom = 41.0
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer"]
+margin_right = 345.0
+margin_bottom = 41.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color = Color( 0.890196, 0.733333, 0.529412, 1 )
+text = "Application : Hello World"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 53.0
+margin_right = 1024.0
+margin_bottom = 67.0
+split_offset = 300
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer/HSplitContainer"]
+margin_right = 322.0
+margin_bottom = 14.0
+text = "asd"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HSplitContainer"]
+margin_left = 334.0
+margin_right = 1024.0
+margin_bottom = 14.0
+text = "zxc"
