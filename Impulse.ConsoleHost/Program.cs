@@ -82,6 +82,12 @@
                     NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(parsedArgs["nlog"]);
                 }
 
+                if (parsedArgs.ContainsKey("log4net"))
+                {
+                    //NLog.LogManager.Configuration = new NLog.Config.XmlLoggingConfiguration(parsedArgs["log4net"]);
+                    configurationBuilder.AddLog4NetProvider(parsedArgs["log4net"]);
+                }
+
                 logger.LogInformation("Command-line runtime arguments set.");
             }
 
@@ -198,6 +204,39 @@
                     _.AddSerilog(new LoggerConfiguration()
                         .ReadFrom.Configuration(configuration)
                         .CreateLogger());
+                }
+
+                if (configuration.IsTrue("Application:EnableLog4Net"))
+                {
+                    _.AddLog4NetLogger(configuration["Log4NetConfig"]);
+
+                    //_.AddProvider(new Logging.Loggers.Log4NetProvider())
+                    //    .AddLog4NetLogger(configuration["Log4NetConfig"]);
+
+                    //_.AddProvider(new Logging.Loggers.Log4NetProvider(
+                    //    new Logging.Loggers.Log4NetConfiguration(configuration["Log4NetConfig"])
+                    //    ))
+                    //    .AddLog4NetLogger();
+
+
+                    //.AddLog4NetLogger(log4netConfig =>
+                    //{
+                    //    log4netConfig.LogLevel = LogLevel.Warning;
+                    //    log4netConfig.Color = ConsoleColor.DarkMagenta;
+                    //});
+
+                    //_.AddProvider(new Logging.Loggers.ColorConsoleLoggerProvider(
+                    //    new Logging.Loggers.ColorConsoleLoggerConfiguration
+                    //    {
+                    //        LogLevel = LogLevel.Error,
+                    //        Color = ConsoleColor.Red
+                    //    }))
+                    //    .AddColorConsoleLogger()
+                    //    .AddColorConsoleLogger(log4netConfig =>
+                    //    {
+                    //        log4netConfig.LogLevel = LogLevel.Warning;
+                    //        log4netConfig.Color = ConsoleColor.DarkMagenta;
+                    //    });
                 }
 
                 if (configuration.IsTrue("Application:EnableDefaultConsoleLogging"))

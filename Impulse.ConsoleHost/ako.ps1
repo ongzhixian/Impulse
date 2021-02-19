@@ -14,7 +14,7 @@ switch ($application)
 	"multicast-sender"    { dotnet run -- settings=settings.multicast-sender.json nlog=NLog.multicast-sender.config }
 	"multicast-receiver"    { dotnet run -- settings=settings.multicast-receiver.json nlog=NLog.multicast-receiver.config }
 
-	"udp-server"    { dotnet run --no-build -- settings=settings.udp-server.json nlog=NLog.udp-server.config  }
+	"udp-server"    { dotnet run --no-build -- settings=settings.udp-server.json nlog=NLog.udp-server.config log4net=log4net.udp-server.config  }
 	"udp-client"    { dotnet run --no-build -- settings=settings.udp-client.json nlog=NLog.udp-client.config  }
 
 	"MoldUDP64-server"    { dotnet run -- settings=settings.MoldUDP64-server.json nlog=NLog.MoldUDP64-server.config }

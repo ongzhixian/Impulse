@@ -1,7 +1,8 @@
 {
     "Application": {
         "Version": "1.0",
-        "Name": "udp-client"
+        "Name": "udp-client",
+        "EnableLog4Net" :  true
     },
     "DependencyInjection": {
         "TransientServices": [
