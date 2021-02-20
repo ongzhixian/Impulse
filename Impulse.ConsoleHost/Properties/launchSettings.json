@@ -2,7 +2,7 @@
   "profiles": {
     "Impulse.ConsoleHost": {
       "commandName": "Project",
-      "commandLineArgs": "settings=settings.gcp-pubsub-publisher.json nlog=NLog.gcp-pubsub-publisher.config",
+      "commandLineArgs": "settings=settings.gcp-pubsub-subscriber.json nlog=NLog.gcp-pubsub-subscriber.config",
       "workingDirectory": "D:\\src\\github.com\\ongzhixian\\impulse\\code\\Impulse.ConsoleHost"
     }
   }

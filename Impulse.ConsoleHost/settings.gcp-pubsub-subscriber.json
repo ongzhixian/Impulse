@@ -1,0 +1,24 @@
+{
+    "Application": {
+        "Version": "1.0",
+        "Name": "gcp-pubsub-subscriber",
+        "Broadcast": {
+            "IPAddress": "192.168.1.255",
+            "Port": 11000
+        },
+        "GoogleApplicationCredentials": "C:/Users/zhixian/Documents/PowerShell/hci-admin-6ec8912b4124.json"
+    },
+
+    "DependencyInjection": {
+        "TransientServices": [
+        ],
+        "ScopedServices": [
+            {
+                "Service": "Impulse.Common.IApplication",
+                "Implementation": "Impulse.Applications.GcpPubSubSubscriberApplication"
+            }
+        ],
+        "SingletonServices": [
+        ]
+    }
+}
