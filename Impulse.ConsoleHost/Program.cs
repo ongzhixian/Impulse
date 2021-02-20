@@ -394,6 +394,10 @@
             // IMPORTANT! Register our application entry point
             services.AddTransient<Program>();
 
+            // Example: Adding service with parameter 
+            //          The delegate is a delayed invocation which maybe less than ideal in some cases.
+            // services.AddTransient<Program>(x => new Program(someParam1, someParam2));
+
             logger.LogInformation("Services set.");
         }
 
