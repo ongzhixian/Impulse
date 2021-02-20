@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Impulse.CloudServices.Aws\Impulse.CloudServices.Aws.csproj" />
+    <ProjectReference Include="..\Impulse.CloudServices.Gcp\Impulse.CloudServices.Gcp.csproj" />
   </ItemGroup>
 
 </Project>

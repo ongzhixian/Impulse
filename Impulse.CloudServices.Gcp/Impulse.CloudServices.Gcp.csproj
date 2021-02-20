@@ -4,4 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Google.Cloud.PubSub.V1" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Impulse.Common\Impulse.Common.csproj" />
+    <ProjectReference Include="..\Impulse.Logging\Impulse.Logging.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -20,6 +20,8 @@ switch ($application)
 	"MoldUDP64-server"    { dotnet run -- settings=settings.MoldUDP64-server.json nlog=NLog.MoldUDP64-server.config }
 	"MoldUDP64-client"    { dotnet run -- settings=settings.MoldUDP64-client.json nlog=NLog.MoldUDP64-client.config }
 
+	"pubsub-publisher"    { dotnet run --no-build -- settings=settings.gcp-pubsub-publisher.json nlog=NLog.gcp-pubsub-publisher.config }
+
 	#cp settings.aws-client.json settings.multicast-server.json
 	#cp NLog.aws-client.config NLog.multicast-server.config 
 
