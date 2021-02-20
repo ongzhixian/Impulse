@@ -59,11 +59,12 @@ namespace Impulse.Logging.Loggers
 
             switch (logLevel)
             {
-                case LogLevel.Warning:
-                case LogLevel.Error:
                 case LogLevel.Trace:
                 case LogLevel.Debug:
                 case LogLevel.Information:
+                case LogLevel.Warning:
+                case LogLevel.Error:
+                case LogLevel.Critical:
                     log.Info($"[{eventId.Id,2}: {logLevel,-12}]  {this.name} - {formatter(state, exception)}");
                     break;
                 default:

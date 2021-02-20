@@ -95,6 +95,81 @@
 
             logger.LogInformation("Configuration settings set.");
 
+            // Section for demoing various ways of reading values from App.Config
+
+            // Method 1: appSettings
+            string defaultRunTimeEnvironment = System.Configuration.ConfigurationManager.AppSettings["RuntimeEnvironment"];
+            Console.WriteLine($"appSettings runTimeEnvironment is {defaultRunTimeEnvironment}");
+
+            // Method 2: root section
+            var settings = System.Configuration.ConfigurationManager.GetSection("settings") as System.Collections.Specialized.NameValueCollection;
+            if (settings.Count > 0)
+            {
+                string runTimeEnvironment = settings["RuntimeEnvironment"];
+                Console.WriteLine($"settings runTimeEnvironment is {runTimeEnvironment}");
+                
+                // To list all settings
+                //foreach (var key in settings.AllKeys)
+                //{
+                //    Console.WriteLine(key + " = " + settings[key]);
+                //}
+            }
+
+            // Method 3: root custom AppSettingsSection
+            var demoSettings = System.Configuration.ConfigurationManager.GetSection("demo") as System.Collections.Specialized.NameValueCollection;
+            if (demoSettings.Count > 0)
+            {
+                string runTimeEnvironment = demoSettings["RuntimeEnvironment"];
+                Console.WriteLine($"demo runTimeEnvironment is {runTimeEnvironment}");
+            }
+
+            // Method 3b: root custom DictionarySectionHandler
+            var bootupSettings = System.Configuration.ConfigurationManager.GetSection("bootup") as System.Collections.Hashtable;
+            foreach (System.Collections.DictionaryEntry item in bootupSettings)
+            {
+                Console.WriteLine($"bootup {item.Key} is {item.Value}");
+            }
+            if (bootupSettings.Count > 0)
+            {
+                string runTimeEnvironment = bootupSettings["RuntimeEnvironment"] as string;
+                Console.WriteLine($"bootup runTimeEnvironment (2) is {runTimeEnvironment}");
+            }
+
+            // Method 3c: root custom SingleTagSectionHandler
+            var locations = System.Configuration.ConfigurationManager.GetSection("locations") as System.Collections.Hashtable;
+            var importDirectory = locations["ImportDirectory"].ToString();
+            var processedDirectory = locations["ProcessedDirectory"].ToString();
+            var rejectedDirectory = locations["RejectedDirectory"].ToString();
+            Console.WriteLine($"locations importDirectory is {importDirectory}");
+            Console.WriteLine($"locations processedDirectory is {processedDirectory}");
+            Console.WriteLine($"locations rejectedDirectory is {rejectedDirectory}");
+
+            // Method 4: sectionGroup section
+            var uatSettings = System.Configuration.ConfigurationManager.GetSection("UAT/settings") as System.Collections.Specialized.NameValueCollection;
+            if (uatSettings.Count > 0)
+            {
+                string runTimeEnvironment = uatSettings["RuntimeEnvironment"];
+                Console.WriteLine($"UAT/settings runTimeEnvironment is {runTimeEnvironment}");
+            }
+
+            // Method 5: sectionGroup custom AppSettingsSection
+            var uatDemo = System.Configuration.ConfigurationManager.GetSection("UAT/demo") as System.Collections.Specialized.NameValueCollection;
+            if (uatDemo.Count > 0)
+            {
+                string runTimeEnvironment = uatDemo["RuntimeEnvironment"];
+                Console.WriteLine($"UAT/demo runTimeEnvironment is {runTimeEnvironment}");
+            }
+
+
+
+            //System.Configuration.KeyValueInternalCollection a;
+
+
+            //var uatSettings = System.Configuration.ConfigurationManager.GetSection("UAT/settings") as System.Collections.Specialized.NameValueCollection;
+
+            // Method 4: Custom ConfigurationSection  
+            // KIV
+
             Console.WriteLine(configurationSettings["Application:Name"]);
 
             using (ILoggerFactory loggerFactory = LoggerFactory.Create(_ =>

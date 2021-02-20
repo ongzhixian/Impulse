@@ -45,18 +45,14 @@
             //this.broadcastIPAddress = configuration["Application:Broadcast:IPAddress"].AsIPAddress();
             //logger.LogInformation(sss);
 
-            logger.LogInformation("ASAS - info"); //
-            logger.LogDebug("ASAS - debug");
-            logger.LogError("ASAS - error"); //
-            logger.LogWarning("ASAS - warn"); // 
             logger.LogTrace("ASAS - trace");
-            logger.LogCritical("ASAS - crit"); // 
-            logger.LogError("ASAS - error"); //
+            logger.LogDebug("ASAS - debug");
+            logger.LogInformation("ASAS - info");   //
+            logger.LogWarning("ASAS - warn");       // 
+            logger.LogError("ASAS - error");        //
+            logger.LogCritical("ASAS - crit");      // 
             
-
             //this.broadcastIPAddress = System.Net.IPAddress.Parse(configuration["Application:Broadcast:IPAddress"]);
-
-
 
         } // public UdpServerApplication (...)
 
