@@ -1,1 +1,10 @@
-{}
+{
+    "application": {
+        "name"              : "some_app_name",
+        "version"           : "0.0.1",
+        "version_date"      : "2020-12-03",
+        "auth_cookie_name"  : "some_app_cookie_name",
+        "app_token"         : "some_app_token",
+        "page_size"         : "25"
+    }
+}
