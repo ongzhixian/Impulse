@@ -28,3 +28,8 @@ dotnet cake --target=Publish
 ### Templates for GtkSharp
 
 dotnet new --install GtkSharp.Template.CSharp
+
+### Templates for Blazor
+
+dotnet new -i Microsoft.AspNetCore.Blazor.Templates
+
