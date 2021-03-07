@@ -2,67 +2,56 @@
 # Modules and functions import statements
 ################################################################################
 
-import logging
+import logging as log
+
+import numpy
+from scipy import stats
+import matplotlib.pyplot as plt
+
 from helpers.app_logging import setup_logging, print_test_log_messages
-# from modules import *
-# from api import *
-# from pages import *
-# from os import getenv
+
 
 ################################################################################
 # Main function
 ################################################################################
 
-def clicked():
-    hello_label.configure(text="Button was clicked !!")
-    messagebox.showinfo('Message title','Message content')
-    #messagebox.showwarning('Message title', 'Message content')  #shows warning message
-    #messagebox.showerror('Message title', 'Message content')    #shows error message
-
 if __name__ == '__main__':
     setup_logging()
-    #print_test_log_messages()
-    logging.info("[PROGRAM START]")
-
-    #import tkinter as tk
-    from tkinter import Tk, Label, Button, Entry, BooleanVar, messagebox
-    from tkinter.ttk import Combobox, Checkbutton
-    window = Tk()
-    window.title("ako apps")
-    window.geometry('350x200')
-
-    username_label = Label(window, text="Username")
-    username_label.grid(column=1, row=1)
-    password_label = Label(window, text="Password")
-    password_label.grid(column=1, row=2)
-
-    username_entry = Entry(window, width=20)
-    username_entry.grid(column=2, row=1)
-    password_entry = Entry(window, width=20)
-    password_entry.grid(column=2, row=2)
-
-    log_in_button = Button(window, text="Log in")
-    log_in_button.grid(column=3, row=1)
-
-    combo = Combobox(window)
-    combo['values']= (1, 2, 3, 4, 5, "Text")
-    combo.current(1) #set the selected item
-    combo.grid(column=2, row=3)
+    log.info("[PROGRAM START]")
     
-    chk_state = BooleanVar()
-    chk_state.set(True) #set check state
-    chk = Checkbutton(window, text='Choose', var=chk_state)
-    chk.grid(column=3, row=3)
+    speed = [99,86,87,88,111,86,103,87,94,78,77,85,86]
 
-    username_entry.focus()
-
-    # hello_label = Label(window, text="Hello", font=("Arial Bold", 50))
-    # hello_label.grid(column=0, row=0)
-
-    # btn2 = Button(window, text="Button Two", bg="orange", fg="red", command=clicked)
-    # btn2.grid(column=2, row=0)
+    x = [5,7,8,7,2,17,2,9,4,11,12,9,6]
+    y = [99,86,87,88,111,86,103,87,94,78,77,85,86]
 
     
-    window.mainloop()
-    logging.info("[PROGRAM END]")
+    x_mean = numpy.mean(speed)
+    x_median = numpy.median(speed)
+    x_mode = stats.mode(speed).mode[0] 
+    x_mode_count = stats.mode(speed).count[0]
+    x_stddev = numpy.std(speed)
+    x_variance = numpy.var(speed)
+    x_percentile = numpy.percentile(speed, 75)
+    x_random = numpy.random.uniform(0.0, 5.0, 100000)
+    x_normal = numpy.random.normal(5.0, 1.0, 100000)
+
+
+
+
+    log.info(f"mean: {x_mean}, median: {x_median}, mode: {x_mode} (x{x_mode_count})")
+    log.info(f"stdDev: {x_stddev}, variance: {x_variance}, pct: {x_percentile}")
+
+    #log.info(x_random)
+    #log.info(x_normal)
+
+    #plt.hist(x_random, 100)
+    # plt.hist(x_normal, 100)
+    # plt.show()
+
+    # x = numpy.random.normal(5.0, 1.0, 1000)
+    # y = numpy.random.normal(10.0, 2.0, 1000)
+
+    plt.scatter(x, y)
+    plt.show()
     
+    log.info("[PROGRAM END]")
