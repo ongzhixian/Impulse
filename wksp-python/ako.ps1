@@ -31,6 +31,18 @@ switch ($envType)
         break
     }
 
+    "web" {
+        Write-Host "Run web application"
+        python.exe ./web_main.py
+        break
+    }
+
+    "ako" {
+        Write-Host "Run ako"
+        python.exe ./ako.py
+        break
+    }
+
     "setup-dev" {
         Write-Host "Setup development environment for PowerShell"
         $env:GOOGLE_APPLICATION_CREDENTIALS="C:/Users/zhixian/Documents/PowerShell/hci-admin-6ec8912b4124.json"

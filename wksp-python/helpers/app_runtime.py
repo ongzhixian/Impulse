@@ -28,20 +28,18 @@ def checked_filter(value, check_value=None):
 
 def get_app_settings():
     logging.debug("In get_app_settings()")
-    app_settings_file = open('app-settings.json')
-    app_settings = json.load(app_settings_file)
-
+    with open('app-settings.json') as app_settings_file:
+        app_settings = json.load(app_settings_file)
     if getenv('GAE_ENV', '').startswith('standard'):
         app_settings["IS_HOSTED"] = True
     else:
         app_settings["IS_HOSTED"] = False
-
     return app_settings
 
 def get_app_secrets():
     logging.debug("In get_app_secrets()")
-    app_secrets_file = open('app-secrets.json')
-    app_secrets = json.load(app_secrets_file)
+    with open('app-secrets.json') as app_secrets_file:
+        app_secrets = json.load(app_secrets_file)    
     return app_secrets
 
 def setup_jinja2_env():
@@ -54,7 +52,7 @@ def setup_jinja2_env():
 # Export module variables
 ################################################################################
 
-app = Flask("hci-admin", static_url_path='/', static_folder='wwwroot',)
+app = Flask("wksp-python", static_url_path='/', static_folder='wwwroot',)
 app_settings = get_app_settings()
 app_secrets = get_app_secrets()
 jinja2_env = setup_jinja2_env()
