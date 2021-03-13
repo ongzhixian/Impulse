@@ -9,6 +9,10 @@ public class ConsoleHost {
     }
 
     public static void main(String[] args) {
-        System.out.println(new ConsoleHost().getGreeting());
+        // System.out.println(new ConsoleHost().getGreeting());
+        System.out.println("[PROGRAM START]");
+
+        System.out.println("[PROGRAM END]");
+        
     }
 }

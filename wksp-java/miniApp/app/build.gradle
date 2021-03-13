@@ -22,9 +22,51 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
+
+    //implementation project(':../demoLib')
+
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.14.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.14.1'
 }
 
 application {
     // Define the main class for the application.
     mainClass = 'com.emptool.ConsoleHost'
 }
+
+// My custom tasks
+// println "Defining my custom tasks"
+
+// 2 Ways of defining tasks
+// Method 1:
+task demoTask1 {
+    description 'Custom task defined using method 1.'
+    // println "This will always be printed if uncommented."
+    doLast {  
+        println "Do task defined using method 1"
+    }  
+}
+// Method 2:
+tasks.register('demoTask2') {
+    description 'My hello world task.'
+    doLast {
+        println "Do task defined using method 2"
+    }
+}
+
+tasks.register('intro') {
+    description 'A task with a dependency.'
+    dependsOn tasks.demoTask2, tasks.demoTask1
+    doLast {
+        println "A task with dependency"
+    }
+}
+
+// Defining tasks dependencies
+
+// partner.dependsOn howdy
+// howdy.finalizedBy partner
+// build.dependsOn demoTask2, demoTask1
+
+// How to run individual task
+// `./gradlew.bat -q intro`
