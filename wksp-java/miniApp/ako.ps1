@@ -31,7 +31,8 @@ switch ($application)
 	# The functional stuff
 
 	"run" {
-		.\gradlew.bat -q run
+		# echo "run"
+		$a = & .\gradlew.bat run
 	}
 
 	"tasks" {
@@ -40,6 +41,10 @@ switch ($application)
 
 	"all-tasks" {
 		.\gradlew.bat tasks --all
+	}
+
+	{ "bld-cont", "build-continuous" } {
+		.\gradlew.bat build -t
 	}
 
 	{ "bld", "build" } {

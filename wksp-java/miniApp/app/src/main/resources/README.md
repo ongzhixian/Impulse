@@ -1,0 +1,3 @@
+# README
+
+src/main/resources/

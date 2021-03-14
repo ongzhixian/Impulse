@@ -3,16 +3,84 @@
  */
 package com.emptool;
 
+// import java.io.Console;
+// import java.io.BufferedReader;
+// import java.io.IOException;
+// import java.io.InputStreamReader;
+// import org.apache.commons.logging.Log;
+// import org.apache.commons.logging.LogFactory;
+
+// Import log4j classes.
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+// import org.apache.log4j.Logger;
+// import org.apache.log4j.PropertyConfigurator;
+ 
+
 public class ConsoleHost {
+
+    //final static Log logger = LogFactory.getLog(ConsoleHost.class);
+    // Logger instance named "MyApp".
+    private static final Logger logger = LogManager.getLogger(ConsoleHost.class);
+
     public String getGreeting() {
         return "Hello World!";
     }
 
     public static void main(String[] args) {
+        //Console console = System.console();
         // System.out.println(new ConsoleHost().getGreeting());
+
+         //PropertiesConfigurator is used to configure logger from properties file
+         //PropertyConfigurator.configure("log4j.properties");
+ 
+
         System.out.println("[PROGRAM START]");
+        
+        logger.debug("main start");	
+		
+		logger.debug("main end");
 
         System.out.println("[PROGRAM END]");
+
+
+
+        // try {
+        //     BufferedReader reader =
+        //         new BufferedReader(new InputStreamReader(System.in));
+        //     String name = reader.readLine();
+        //     System.out.println(name);  
+        // } catch (Exception ex) {
+        //     //TODO: handle exception
+        //     ex.printStackTrace(); // if any error occurs
+        // }
+
         
+
+
+        // try {
+        //     System.out.println("1");
+        //     Console console = System.console();
+
+        //     if (console == null) {
+        //         System.out.println("No console; terminating...");
+        //     }
+
+        //     if (console != null) {
+        //         System.out.println("2");
+        //        String name = console.readLine("Name: ");
+        //        System.out.println("Name entered : " + name);
+        //     }     
+
+        //     System.out.println("3");
+
+        //  } catch(Exception ex) {
+        //     ex.printStackTrace(); // if any error occurs
+        //  }
+
+        // System.out.println("[PROGRAM END]");
+        //console.readLine("AS");
+        //String x = console.readLine("AS");
     }
 }
