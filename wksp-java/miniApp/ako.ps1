@@ -39,6 +39,10 @@ switch ($application)
 		.\gradlew.bat tasks 
 	}
 
+	"properties" {
+		.\gradlew.bat properties
+	}
+
 	"all-tasks" {
 		.\gradlew.bat tasks --all
 	}
