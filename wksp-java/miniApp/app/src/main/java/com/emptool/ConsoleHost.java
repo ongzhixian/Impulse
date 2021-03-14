@@ -3,26 +3,12 @@
  */
 package com.emptool;
 
-// import java.io.Console;
-// import java.io.BufferedReader;
-// import java.io.IOException;
-// import java.io.InputStreamReader;
-// import org.apache.commons.logging.Log;
-// import org.apache.commons.logging.LogFactory;
-
-// Import log4j classes.
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-// import org.apache.log4j.Logger;
-// import org.apache.log4j.PropertyConfigurator;
- 
-
 public class ConsoleHost {
 
-    //final static Log logger = LogFactory.getLog(ConsoleHost.class);
-    // Logger instance named "MyApp".
-    private static final Logger logger = LogManager.getLogger(ConsoleHost.class);
+    private static final Logger log = LogManager.getLogger(ConsoleHost.class);
 
     public String getGreeting() {
         return "Hello World!";
@@ -32,19 +18,15 @@ public class ConsoleHost {
         //Console console = System.console();
         // System.out.println(new ConsoleHost().getGreeting());
 
-         //PropertiesConfigurator is used to configure logger from properties file
-         //PropertyConfigurator.configure("log4j.properties");
- 
-
         System.out.println("[PROGRAM START]");
         
-        logger.debug("main start");	
+        log.info("[PROGRAM START]");
+        log.debug("debug main start");
 		
-		logger.debug("main end");
+		log.debug("debug main end");
+        log.info("[PROGRAM END]");
 
         System.out.println("[PROGRAM END]");
-
-
 
         // try {
         //     BufferedReader reader =
@@ -55,8 +37,6 @@ public class ConsoleHost {
         //     //TODO: handle exception
         //     ex.printStackTrace(); // if any error occurs
         // }
-
-        
 
 
         // try {
