@@ -5,6 +5,12 @@ package com.emptool;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import javax.swing.*;
+
+import com.emptool.ui.MiniAppDesktop;
+
+import java.awt.*;
+import java.awt.event.*;
 
 public class ConsoleHost {
 
@@ -31,6 +37,90 @@ public class ConsoleHost {
         log.fatal("the built-in FATAL level");  // intLevel 100
 
         // Start of application
+        //SimpleExample fr = new SimpleExample();
+
+        // JFrame f=new JFrame();//creating instance of JFrame  
+        // JButton b=new JButton("click");//creating instance of JButton  
+        // b.setBounds(130,100,100, 40);//x axis, y axis, width, height  
+        // f.add(b);//adding button in JFrame  
+        // f.setSize(400,500);//400 width and 500 height  
+        // f.setLayout(null);//using no layout managers  
+        // f.setVisible(true);//making the frame visible
+
+
+        // ImageIcon icon = createImageIcon("images/middle.gif");
+        // JLabel label1 = new JLabel("Image and Text", icon, JLabel.CENTER);
+
+        try {
+            UIManager.setLookAndFeel(
+                UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (Exception e) { }
+        JFrame.setDefaultLookAndFeelDecorated(true);
+
+        MiniAppDesktop desktopApp = new MiniAppDesktop();
+
+        //1. Create the frame.
+        // JFrame frame = new JFrame("FrameDemo");
+        // JLabel label2 = new JLabel("Text-Only Label");
+
+        // JMenuBar menuBar;
+        // JMenu menu, submenu;
+        // JMenuItem i1, i2, i3, i4, i5;  
+
+        // menuBar = new JMenuBar();
+
+        // menu=new JMenu("Menu");  
+        // submenu=new JMenu("Sub Menu");  
+        // i1=new JMenuItem("Item 1");  
+        // i2=new JMenuItem("Item 2");  
+        // i3=new JMenuItem("Item 3");  
+        // i4=new JMenuItem("Item 4");  
+        // i5=new JMenuItem("Item 5");  
+        // menu.add(i1);
+        // menu.add(i2);
+        // menu.addSeparator();
+        // menu.add(i3);  
+        // submenu.add(i4); 
+        // submenu.add(i5);  
+        // menu.add(submenu);  
+
+        //Build the first menu.
+        // menu = new JMenu("A Menu");
+        // menu.setMnemonic(KeyEvent.VK_A);
+        // menu.getAccessibleContext().setAccessibleDescription("The only menu in this program that has menu items");
+        // menuBar.add(menu);
+        
+        // menuBar.add(menu);
+
+
+        // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // frame.getContentPane().add(label2, BorderLayout.CENTER);
+        // frame.setJMenuBar(menuBar);
+        
+        // frame.setLayout(null);  
+
+        // //frame.pack();
+        // frame.setSize(400,400);
+        // frame.setVisible(true);
+
+
+        // Frame f=new Frame();  
+        // Button b=new Button("click me");  
+        // b.setBounds(30,50,80,30);  
+        // f.add(b);  
+        // f.setSize(300,300);  
+        // f.setLayout(null);  
+        // f.setVisible(true);  
+
+
+        // Frame fr=new Frame();       
+        // Label lb = new Label("UserId: "); 
+        // fr.add(lb);           
+        // TextField t = new TextField();
+        // fr.add(t);
+        // fr.setSize(500, 300);  
+        // fr.setLayout(new FlowLayout());
+        // fr.setVisible(true);
 
 
         log.info("[PROGRAM END]");
