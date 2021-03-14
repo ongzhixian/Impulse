@@ -3,7 +3,8 @@
   <Properties>
     <Property name="filename">target/test.log</Property>
     <Property name="name1">value</Property>
-  </Properties> 
+  </Properties>
+
   <Appenders>
     <Console name="STDOUT">
       <PatternLayout pattern="%m MDC%X%n"/>
@@ -14,5 +15,5 @@
     <Root level="trace">
       <AppenderRef ref="STDOUT"/>
     </Root>
-  </Loggers> 
+  </Loggers>
 </Configuration>
