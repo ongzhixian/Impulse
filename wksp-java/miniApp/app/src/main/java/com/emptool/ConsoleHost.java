@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 
 public class ConsoleHost {
 
-    private static final Logger log = LogManager.getLogger(ConsoleHost.class);
+    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(ConsoleHost.class);
 
     public String getGreeting() {
         return "Hello World!";
@@ -18,15 +18,24 @@ public class ConsoleHost {
         //Console console = System.console();
         // System.out.println(new ConsoleHost().getGreeting());
 
-        System.out.println("[PROGRAM START]");
+        //System.out.println("[PROGRAM START]");
         
         log.info("[PROGRAM START]");
-        log.debug("debug main start");
-		
-		log.debug("debug main end");
+
+        // Print demo log messges
+        log.trace("the built-in TRACE level");  // intLevel 600
+        log.debug("the built-in DEBUG level");  // intLevel 500
+        log.info("the built-in INFO level");    // intLevel 400
+        log.warn("the built-in WARN level");    // intLevel 300
+        log.error("the built-in ERROR level");  // intLevel 200
+        log.fatal("the built-in FATAL level");  // intLevel 100
+
+        // Start of application
+
+
         log.info("[PROGRAM END]");
 
-        System.out.println("[PROGRAM END]");
+        //System.out.println("[PROGRAM END]");
 
         // try {
         //     BufferedReader reader =
@@ -64,3 +73,4 @@ public class ConsoleHost {
         //String x = console.readLine("AS");
     }
 }
+

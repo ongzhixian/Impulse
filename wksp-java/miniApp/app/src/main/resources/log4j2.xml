@@ -3,6 +3,7 @@
 
   <!-- Properties -->
   <Properties>
+    <Property name="logsDirectory">logs</Property>
     <Property name="filename">target/test.log</Property>
     <Property name="name1">value</Property>
   </Properties>
@@ -10,13 +11,23 @@
   <!-- Appenders -->
   <Appenders>
     <Console name="STDOUT" target="SYSTEM_OUT">
-      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%-5level] [thr:%threadName] [mtd:%method] [lgg:%logger{1}] - %msg%n"/>
     </Console>
     <File name="LogToFile" fileName="logs/app.log">
       <PatternLayout>
         <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
       </PatternLayout>
     </File>
+
+    <RollingFile name="RollingFileLogger"  filePattern="${logsDirectory}/app-info-%d{yyyy-MM-dd}.log">
+      <PatternLayout>
+        <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+      </PatternLayout>
+      <Policies>
+        <!-- <OnStartupTriggeringPolicy /> -->
+        <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+      </Policies>
+    </RollingFile>
   </Appenders>
  
   <!-- Loggers -->
@@ -24,6 +35,7 @@
     <Root level="trace">
       <AppenderRef ref="STDOUT"/>
       <AppenderRef ref="LogToFile"/>
+      <AppenderRef ref="RollingFileLogger"/>
     </Root>
   </Loggers>
 
