@@ -7,6 +7,8 @@ namespace WkspIdl.Handcraft
     {
         string Name { get; set; }
 
+        IList<IOwner> CustomerList {get;set;}
+
         IList<IAccount> AccountList { get; set; }
 
         void RegisterAccountOwner(IOwner owner);
@@ -14,6 +16,12 @@ namespace WkspIdl.Handcraft
         void UpdateAccountOwner(IOwner owner);
 
         void RegisterBankAccount(IOwner owner);
+
+        IList<IAccount> GetBankAccounts(IOwner owner);
+
+        void UpdateBankAccount(IAccount account);
+
+        void UpdateBankAccount(IAccount account);
     }
 
     public class AngMoKioBank : IBank
