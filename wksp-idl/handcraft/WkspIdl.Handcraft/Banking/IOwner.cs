@@ -9,9 +9,10 @@ namespace WkspIdl.Handcraft
         string IIdentityInformation {get;set;}
     }
 
-    public class AccountOwner : IOwner
-    {
-        
-    }
+    // public class AccountOwner : IOwner
+    // {
+    //     public string Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    //     public string IIdentityInformation { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    // }
 
 } // namespace WkspIdl.Handcraft
