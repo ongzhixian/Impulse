@@ -6,7 +6,7 @@ namespace WkspIdl.Handcraft
     {
         string Id { get; set; }
 
-        string IIdentityInformation {get;set;}
+        IIdentityInformation IdentityInformation {get;set;}
     }
 
     // public class AccountOwner : IOwner

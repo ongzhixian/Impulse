@@ -12,7 +12,7 @@ namespace WkspIdl.Handcraft
 
         // IList<IAccount> AccountList { get; set; }
 
-        void RegisterAccountOwner(IOwner owner);
+        IOwner RegisterAccountOwner(IOwner owner);
 
         // void UpdateAccountOwner(IOwner owner);
 
@@ -39,7 +39,7 @@ namespace WkspIdl.Handcraft
             //this.AccountList = new List<IAccount>();
         }
 
-        public void RegisterAccountOwner(IOwner owner)
+        public IOwner RegisterAccountOwner(IOwner owner)
         {
             throw new NotImplementedException();
         }
