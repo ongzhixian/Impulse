@@ -1,1 +1,0 @@
-Singleton Microsoft.Extensions.Configuration.IConfiguration   Microsoft.Extensions.Configuration.ConfigurationRoot
