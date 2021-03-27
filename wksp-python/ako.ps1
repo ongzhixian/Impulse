@@ -37,6 +37,12 @@ switch ($envType)
         break
     }
 
+    "celery" {
+        Write-Host "Run celery"
+        celery.exe -A celery_tasks worker --loglevel=INFO
+        break
+    }
+
     "ako" {
         Write-Host "Run ako"
         python.exe ./ako.py
