@@ -37,7 +37,7 @@ root_logger.addHandler(file_logger)
 def listen_broadcast(host_ip, host_port):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+    #client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
     client_socket.bind((host_ip, host_port))
     while 1:
         data_received = client_socket.recv(1024 * 64)
