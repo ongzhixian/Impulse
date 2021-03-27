@@ -32,5 +32,36 @@ namespace Impulse.Networking
 
             return udpClient;
         }
+
+        public static System.Net.Sockets.UdpClient GetBroadcastReceiver(int port)
+        {
+            return GetBroadcastReceiver(new System.Net.IPEndPoint(System.Net.IPAddress.Any, port));
+        }
+
+        public static System.Net.Sockets.UdpClient GetBroadcastReceiver(System.Net.IPEndPoint clientEndpoint)
+        {
+            System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient();
+            udpClient.Client.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Socket, System.Net.Sockets.SocketOptionName.ReuseAddress, true);
+            udpClient.Client.Bind(clientEndpoint);
+
+            return udpClient;
+        }
+
+        public static System.Net.Sockets.UdpClient GetBroadcastSender(System.Net.IPEndPoint clientEndpoint)
+        {
+            //System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient();
+            //udpClient.Client.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Socket, System.Net.Sockets.SocketOptionName.ReuseAddress, true);
+            //udpClient.Client.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Socket, System.Net.Sockets.SocketOptionName.Broadcast, true);
+            //udpClient.Client.Bind(clientEndpoint);
+
+            System.Net.Sockets.UdpClient udpClient = new System.Net.Sockets.UdpClient();
+            udpClient.Client.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Socket, System.Net.Sockets.SocketOptionName.ReuseAddress, true);
+            udpClient.Client.SetSocketOption(System.Net.Sockets.SocketOptionLevel.Socket, System.Net.Sockets.SocketOptionName.Broadcast, true);
+            udpClient.Connect(clientEndpoint);
+
+            return udpClient;
+        }
+
+        // System.Net.IPEndPoint clientEndpoint 
     }
 }

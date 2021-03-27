@@ -11,6 +11,9 @@ switch ($application)
 	"tcp-server"    { dotnet run -- settings=settings.tcp-server.json nlog=NLog.tcp-server.config }
 	"tcp-client"    { dotnet run -- settings=settings.tcp-client.json nlog=NLog.tcp-client.config }
 
+	"broadcast-sender"		{ dotnet run -- settings=settings.broadcast-sender.json nlog=NLog.broadcast-sender.config }
+	"broadcast-receiver"    { dotnet run -- settings=settings.broadcast-receiver.json nlog=NLog.broadcast-receiver.config }
+
 	"multicast-sender"    { dotnet run -- settings=settings.multicast-sender.json nlog=NLog.multicast-sender.config }
 	"multicast-receiver"    { dotnet run -- settings=settings.multicast-receiver.json nlog=NLog.multicast-receiver.config }
 
