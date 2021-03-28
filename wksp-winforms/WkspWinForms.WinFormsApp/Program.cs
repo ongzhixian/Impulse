@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Windows.Forms;
+using WkspWinForms.WinFormsApp.DatabaseAccess;
 using WkspWinForms.WinFormsApp.Logging;
 
 namespace WkspWinForms.WinFormsApp
@@ -20,8 +22,19 @@ namespace WkspWinForms.WinFormsApp
                 ILoggerFactory loggerFactory = serviceProvider.GetService<ILoggerFactory>();
                 ILogger log = loggerFactory.CreateLogger("Main");
 
+
                 log.LogInformation("[START PROGRAM]");
-                
+
+                using (ProductContext ctx = new ProductContext())
+                {
+                    var x = ctx.Categories.ToList();
+                    ctx.Categories.Add(new Domain.Category {
+                        Name="aa"
+                    });
+                    ctx.SaveChanges();
+                }
+
+
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(serviceProvider.GetRequiredService<MdiMainForm>());
