@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkspWinForms.WinFormsApp", "WkspWinForms.WinFormsApp\WkspWinForms.WinFormsApp.csproj", "{28385A4D-FC81-4602-B85D-2CD5A5A6AE63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkspWinforms.WinFormsApp.Tests", "WkspWinforms.WinFormsApp.Tests\WkspWinforms.WinFormsApp.Tests.csproj", "{8D45D693-0227-4166-AF0A-536319A65569}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{28385A4D-FC81-4602-B85D-2CD5A5A6AE63}.Release|x64.Build.0 = Release|Any CPU
 		{28385A4D-FC81-4602-B85D-2CD5A5A6AE63}.Release|x86.ActiveCfg = Release|Any CPU
 		{28385A4D-FC81-4602-B85D-2CD5A5A6AE63}.Release|x86.Build.0 = Release|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Debug|x64.Build.0 = Debug|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Debug|x86.Build.0 = Debug|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Release|x64.ActiveCfg = Release|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Release|x64.Build.0 = Release|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Release|x86.ActiveCfg = Release|Any CPU
+		{8D45D693-0227-4166-AF0A-536319A65569}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
