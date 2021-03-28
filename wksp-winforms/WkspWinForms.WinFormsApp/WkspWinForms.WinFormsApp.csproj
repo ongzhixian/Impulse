@@ -163,10 +163,11 @@
   <ItemGroup>
     <Compile Include="DatabaseAccess\ObservableListSource.cs" />
     <Compile Include="DatabaseAccess\ProductContext.cs" />
-    <Compile Include="Domain\Standard.cs" />
-    <Compile Include="Domain\Teacher.cs" />
-    <Compile Include="Domain\Student.cs" />
-    <Compile Include="Domain\Course.cs" />
+    <Compile Include="Domain\Item.cs" />
+    <Compile Include="Domain\School\Standard.cs" />
+    <Compile Include="Domain\School\Teacher.cs" />
+    <Compile Include="Domain\School\Student.cs" />
+    <Compile Include="Domain\School\Course.cs" />
     <Compile Include="Domain\Category.cs" />
     <Compile Include="Domain\Product.cs" />
     <Compile Include="Form1.cs">

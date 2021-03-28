@@ -25,14 +25,14 @@ namespace WkspWinForms.WinFormsApp
 
                 log.LogInformation("[START PROGRAM]");
 
-                using (ProductContext ctx = new ProductContext())
-                {
-                    var x = ctx.Categories.ToList();
-                    ctx.Categories.Add(new Domain.Category {
-                        Name="aa"
-                    });
-                    ctx.SaveChanges();
-                }
+                //using (ProductContext ctx = new ProductContext())
+                //{
+                //    var x = ctx.Categories.ToList();
+                //    ctx.Categories.Add(new Domain.Category {
+                //        Name="aa"
+                //    });
+                //    ctx.SaveChanges();
+                //}
 
 
                 Application.EnableVisualStyles();

@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Windows.Forms;
+using WkspWinForms.WinFormsApp.Properties;
 
 namespace WkspWinForms.WinFormsApp
 {
@@ -57,6 +58,7 @@ namespace WkspWinForms.WinFormsApp
             InitializeComponent();
 
             log.LogInformation("MdiMainForm - Initialized");
+            
         }
 
         protected override void Dispose(bool disposing)
@@ -100,13 +102,13 @@ namespace WkspWinForms.WinFormsApp
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tileHorizontalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tileVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.arrangeIconsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -123,7 +125,7 @@ namespace WkspWinForms.WinFormsApp
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(9, 2, 0, 2);
-            this.menuStrip.Size = new System.Drawing.Size(936, 24);
+            this.menuStrip.Size = new System.Drawing.Size(724, 24);
             this.menuStrip.TabIndex = 1;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -360,23 +362,6 @@ namespace WkspWinForms.WinFormsApp
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
-            // statusStrip
-            // 
-            this.statusStrip.Font = new System.Drawing.Font("Cascadia Code", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
-            this.statusStrip.Location = new System.Drawing.Point(0, 623);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(936, 22);
-            this.statusStrip.TabIndex = 3;
-            this.statusStrip.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(35, 17);
-            this.toolStripStatusLabel1.Text = "Idle";
-            // 
             // windowToolStripMenuItem
             // 
             this.windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -416,20 +401,41 @@ namespace WkspWinForms.WinFormsApp
             this.arrangeIconsToolStripMenuItem.Text = "Arrange Icons";
             this.arrangeIconsToolStripMenuItem.Click += new System.EventHandler(this.arrangeIconsToolStripMenuItem_Click);
             // 
+            // statusStrip
+            // 
+            this.statusStrip.Font = new System.Drawing.Font("Cascadia Code", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip.Location = new System.Drawing.Point(0, 359);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(724, 22);
+            this.statusStrip.TabIndex = 3;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(35, 17);
+            this.toolStripStatusLabel1.Text = "Idle";
+            // 
             // MdiMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(936, 645);
+            this.ClientSize = new System.Drawing.Size(724, 381);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
+            this.DataBindings.Add(new System.Windows.Forms.Binding("Location", global::WkspWinForms.WinFormsApp.Properties.Settings.Default, "MdiMainForm_Location", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.Font = new System.Drawing.Font("Cascadia Code", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IsMdiContainer = true;
+            this.Location = global::WkspWinForms.WinFormsApp.Properties.Settings.Default.MdiMainForm_Location;
             this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MdiMainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Support Assistant Tool";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MdiMainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MdiMainForm_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -472,6 +478,42 @@ namespace WkspWinForms.WinFormsApp
         private void arrangeIconsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.ArrangeIcons);
+        }
+
+        private void MdiMainForm_Load(object sender, EventArgs e)
+        {
+            // Set window location
+            if (Settings.Default.MdiMainForm_Location != null)
+            {
+                this.Location = Settings.Default.MdiMainForm_Location;
+            }
+
+            // Set window size
+            if (Settings.Default.MdiMainForm_Size != null)
+            {
+                this.Size = Settings.Default.MdiMainForm_Size;
+            }
+        }
+
+        private void MdiMainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Copy window location to app settings
+            Settings.Default.MdiMainForm_Location = this.Location;
+
+            // Copy window size to app settings
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                Settings.Default.MdiMainForm_Size = this.Size;
+            }
+            else
+            {
+                Settings.Default.MdiMainForm_Size = this.RestoreBounds.Size;
+            }
+
+            //System.Windows.Forms.Screen
+
+            // Save settings
+            Settings.Default.Save();
         }
     }
 }
