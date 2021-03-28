@@ -1,19 +1,24 @@
 import logging
 from datetime import datetime
 
-def setup_logging(logging_level=logging.DEBUG, log_file_name='wksp-python.log'):
+def setup_logging(logging_level=logging.DEBUG, log_file_name='wksp-python.log', application_name='custom_app'):
     logging_format = logging.Formatter('%(asctime)-15s %(levelname)-8s %(module)-12s %(funcName)-20s %(message)s')
-    logging_format = logging.Formatter('%(asctime)-15s [%(levelname).3s] [%(module)-15s,%(funcName)-20s] %(message)s')
+    logging_format = logging.Formatter('%(asctime)-15s [%(levelname).3s] [%(module)s,%(funcName)-20s] %(message)s')
     root_logger = logging.getLogger()
     root_logger.setLevel(logging_level)
-    # Setup console logging
-    default_console_logger = logging.StreamHandler()
-    default_console_logger.setFormatter(logging_format)
-    root_logger.addHandler(default_console_logger)
+    
     # Setup file logging
     file_logger = logging.FileHandler(log_file_name)
+    file_logger.setLevel(logging.DEBUG)
     file_logger.setFormatter(logging_format)
     root_logger.addHandler(file_logger)
+
+    # Setup console logging
+    default_console_logger = logging.StreamHandler()
+    default_console_logger.setLevel(logging.ERROR)
+    default_console_logger.setFormatter(logging_format)
+    root_logger.addHandler(default_console_logger)
+    
 
 def print_test_log_messages(ts=datetime.utcnow()):
     timestamp = str(ts)
