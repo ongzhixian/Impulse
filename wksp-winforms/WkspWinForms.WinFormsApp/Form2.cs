@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using System.Windows.Forms;
 
 namespace WkspWinForms.WinFormsApp
@@ -8,9 +9,15 @@ namespace WkspWinForms.WinFormsApp
         private Label label1;
         private System.ComponentModel.IContainer components = null;
 
-        public Form2()
+        private ILogger<Form2> log;
+
+        public Form2(ILogger<Form2> log)
         {
+            this.log = log;
+
             InitializeComponent();
+
+            log.LogInformation("Form2 - Initialized");
         }
 
         protected override void Dispose(bool disposing)

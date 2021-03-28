@@ -1,3 +1,6 @@
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Windows.Forms;
 
 namespace WkspWinForms.WinFormsApp
@@ -37,9 +40,18 @@ namespace WkspWinForms.WinFormsApp
         private StatusStrip statusStrip;
         private ToolStripStatusLabel toolStripStatusLabel1;
         private System.ComponentModel.IContainer components = null;
-        public MdiMainForm()
+
+        private ILogger<MdiMainForm> log;
+        private IServiceProvider services;
+
+        public MdiMainForm(ILogger<MdiMainForm> log, IServiceProvider services)
         {
+            this.log = log;
+            this.services = services;
+
             InitializeComponent();
+
+            log.LogInformation("MdiMainForm - Initialized");
         }
 
         protected override void Dispose(bool disposing)
@@ -379,11 +391,12 @@ namespace WkspWinForms.WinFormsApp
 
         private void newToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
-            Form2 newMDIChild = new Form2();
-            // Set the Parent Form of the Child window.
-            newMDIChild.MdiParent = this;
-            // Display the new form.
-            newMDIChild.Show();
+            //var x = services.GetService<Form2>();
+            Form newMDIChild = services.GetService<Form2>();
+            newMDIChild.MdiParent = this;   // Set the Parent Form of the Child window.
+            newMDIChild.Show();             // Display the new form.
+
+            log.LogInformation("Add Form()");
         }
 
         private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
