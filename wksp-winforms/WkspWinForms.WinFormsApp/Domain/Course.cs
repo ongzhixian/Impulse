@@ -9,11 +9,10 @@ using WkspWinForms.WinFormsApp.DatabaseAccess;
 
 namespace WkspWinForms.WinFormsApp.Domain
 {
-    [Table("category")]
-    public class Category
+    [Table("course")]
+    public class Course
     {
-        private readonly ObservableListSource<Product> _products = new ObservableListSource<Product>();
-
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
         [Column("id")]
         public int Id { get; set; }
@@ -21,7 +20,5 @@ namespace WkspWinForms.WinFormsApp.Domain
         [Required]
         [Column("name")]
         public string Name { get; set; }
-
-        public virtual ObservableListSource<Product> Products { get { return _products; } }
     }
 }

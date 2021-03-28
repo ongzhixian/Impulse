@@ -17,6 +17,7 @@ namespace WkspWinForms.WinFormsApp.Domain
         [Column("id")]
         public int Id { get; set; }
 
+        [Required]
         [Column("name")]
         public string Name { get; set; }
 
