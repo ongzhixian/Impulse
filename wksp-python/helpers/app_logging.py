@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime
 
-def setup_logging(logging_level=logging.DEBUG, log_file_name='wksp-python.log', application_name='custom_app'):
+def setup_logging(logging_level=logging.DEBUG, log_file_name='wksp-python.log'):
     logging_format = logging.Formatter('%(asctime)-15s %(levelname)-8s %(module)-12s %(funcName)-20s %(message)s')
     logging_format = logging.Formatter('%(asctime)-15s [%(levelname).3s] [%(module)s,%(funcName)-20s] %(message)s')
     root_logger = logging.getLogger()
@@ -15,7 +15,7 @@ def setup_logging(logging_level=logging.DEBUG, log_file_name='wksp-python.log', 
 
     # Setup console logging
     default_console_logger = logging.StreamHandler()
-    default_console_logger.setLevel(logging.ERROR)
+    default_console_logger.setLevel(logging_level)
     default_console_logger.setFormatter(logging_format)
     root_logger.addHandler(default_console_logger)
     
