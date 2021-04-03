@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.7.141" />
 
     
@@ -28,6 +29,23 @@
   <ItemGroup>
     <Folder Include="Drivers\" />
     <Folder Include="Hooks\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WkspAzure.FrmWrk.CryptographicFunctions\WkspAzure.FrmWrk.CryptographicFunctions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Steps\RandomBytesStepDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Steps\VersionStepDefinition.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>
