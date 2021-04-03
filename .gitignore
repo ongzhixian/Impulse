@@ -389,3 +389,4 @@ app-secrets.json
 *.dcvr
 **/_coverage_report.html
 **/_coverage_report
+publish.zip
