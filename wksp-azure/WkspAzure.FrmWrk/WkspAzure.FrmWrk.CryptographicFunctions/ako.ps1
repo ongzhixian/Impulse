@@ -55,6 +55,10 @@ switch ($application)
         $functionAppName = "WkspAzureFrmWrk"
         az functionapp deployment source config-zip -g $resourceGroup -n $functionAppName --src $publishZipFilePath
 
+        # Notes
+        # App Name:     WkspAzureFrmWrk
+        # Hosting Plan: WkspAzureFrmWrkHostingPlan
+        # https://wkspazurefrmwrk.azurewebsites.net
     }
 
     default { 
