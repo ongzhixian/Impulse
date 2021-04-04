@@ -34,7 +34,7 @@
 
         public static async Task<dynamic> DataAsync(this HttpRequestMessage req)
         {
-            return await DataAsync(req);
+            return await DataAsync(req, null);
         }
 
         public static async Task<dynamic> DataAsync(this HttpRequestMessage req, TraceWriter log = null)
