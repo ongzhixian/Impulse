@@ -25,6 +25,11 @@ dotnet tool install -g Cake.Tool
 dotnet cake --target=Publish
 
 
+### Tools for Amazon Lambda
+
+dotnet tool install -g Amazon.Lambda.Tools
+
+
 ### Templates for GtkSharp
 
 dotnet new --install GtkSharp.Template.CSharp
@@ -36,6 +41,11 @@ dotnet new -i Microsoft.AspNetCore.Blazor.Templates
 ### Templates for SpecFlow
 
 dotnet new -i SpecFlow.Templates.DotNet
+
+### Templates for Amazon Lambda
+
+dotnet new -i Amazon.Lambda.Templates
+
 
 ## Nuget packages with executable tools
 
