@@ -378,6 +378,7 @@ gradle-app.setting
 !wksp-java/src/**/build/
 
 **/wksp-java/dry-run
+**/wksp-c/*.exe
 
 # ZX custom
 .vscode
