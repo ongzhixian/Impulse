@@ -1,0 +1,37 @@
+@startuml
+
+caller -> server : conReq
+
+hnote over caller : idle
+
+caller <- server : conConf
+
+rnote over server
+    "r" as rectangle
+    "h" as hexagon
+endrnote
+
+rnote over server
+    this is
+    on several
+    lines
+endrnote
+
+hnote over caller
+    this is
+    on several
+    lines
+endhnote
+
+Alice->Bob:m1
+Bob->Charlie:m2
+
+note over Alice, Charlie: Old method for note over all part. with:\n ""note over //FirstPart, LastPart//"".
+
+note across: New method with:\n""note across""
+
+Bob->Alice
+
+hnote across:Note across all part.
+
+@enduml
