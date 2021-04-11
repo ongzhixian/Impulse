@@ -47,6 +47,11 @@ dotnet new -i SpecFlow.Templates.DotNet
 dotnet new -i Amazon.Lambda.Templates
 
 
+### Templates for Google Cloud Platform Functions
+
+dotnet new -i Google.Cloud.Functions.Templates
+
+
 ## Nuget packages with executable tools
 
 SpecFlow.exe
