@@ -1,0 +1,81 @@
+graph G {
+    ////////////////////////////////////////
+    // Graph
+
+    fontcolor="cyan"
+    fontname="Consolas"
+    fontsize="24"
+
+
+    //splines = ortho;
+
+    //concentrate = true;
+
+    /*
+    color="red"
+    bgcolor="grey"
+    */
+    
+    label="Hello world xx"
+    rankdir = "LR"
+
+    ////////////////////////////////////////
+    // Nodes
+    //i5 [shape=ellipse,color=red,style=bold,label="Caroline Bouvier Kennedy\nb. 27.11.1957 New York",labelloc=b];
+    nStart  [label="start", shape=box, style="rounded,filled", width=1, height=0.3, fillcolor=black,color=white]
+    nEnd    [label="end"]
+
+    "genericUml" [
+        label = "<f0> className | <f1> +public attribute\l#protected attribute\l-private attribute\l | <f2> Operations | Responsibilities"
+        shape = "record"
+        color=blue
+        penwidth=2
+    ];
+
+    "student" [
+        
+        label = "<f0> Student | <f1> +firstName\l+lastName\l-displayNameazc zc\l | <f2> Operations | Responsibilities"
+        shape = "record"
+        style="rounded"
+        color=blue
+        penwidth=2
+    ];
+
+    "state5" [ 
+        style = "filled" 
+        penwidth = 1 
+        fillcolor = "black" 
+        fontname = "Courier New" 
+        shape = "Mrecord" 
+        label =<<table border="0" cellborder="0" cellpadding="3" bgcolor="black"><tr><td bgcolor="black" align="center" colspan="2"><font color="white">State #5</font></td></tr><tr><td align="left" port="r0"><font color="white">&#40;0&#41; s -&gt; e &bull;$ </font></td></tr></table>> 
+    ];
+ 
+
+    subgraph cluster38
+    {
+        rankdir = "LR"
+        label="asd"
+        "genericUml":f0 -- {a1, a2};
+
+    }
+
+    ////////////////////////////////////////
+    // Edges
+
+    nStart -- nEnd;
+
+    "genericUml":f0 -- "student":f0 [id = 0, penwidth=3];
+
+
+    
+    
+    /*
+    na −− nb −− nc;
+    A -- {B C}[color=blue,penwidth=2]
+
+    a −− {x y};
+    n0 -- n1 -- n2 -- n3 -- n0;
+    n0 -- n1 [len=1, style=bold];
+    i5 -- n1 -- n2 -- n3 -- n0 [style=bold,color=blue]; 
+    */
+}
