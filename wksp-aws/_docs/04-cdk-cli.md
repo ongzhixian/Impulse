@@ -4,6 +4,8 @@
 
 npm install -g aws-cdk
 
+
+
 ## Workshop
 
 ```
@@ -11,7 +13,7 @@ mkdir cdk-workshop && cd cdk-workshop
 cdk init sample-app --language csharp
 ```
 
-```
+``` Results
 PS> cdk init sample-app --language csharp
 Applying project template sample-app for csharp
 Project `CdkWorkshop\CdkWorkshop.csproj` added to the solution.
@@ -38,6 +40,8 @@ Enjoy!
 ✅ All done!
 ```
 
+## Packages to add to .NET .csproj
 
 
 dotnet add package Amazon.CDK.AWS.Lambda
+dotnet add package Amazon.CDK.AWS.APIGateway

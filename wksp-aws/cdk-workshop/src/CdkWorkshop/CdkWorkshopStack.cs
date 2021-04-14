@@ -3,6 +3,7 @@ using Amazon.CDK.AWS.SNS;
 using Amazon.CDK.AWS.SNS.Subscriptions;
 using Amazon.CDK.AWS.SQS;
 using Amazon.CDK.AWS.Lambda;
+using Amazon.CDK.AWS.APIGateway;
 
 namespace CdkWorkshop
 {
@@ -26,6 +27,12 @@ namespace CdkWorkshop
                 Runtime = Runtime.NODEJS_10_X, // execution environment
                 Code = Code.FromAsset("lambda"), // Code loaded from the "lambda" directory
                 Handler = "hello.handler" // file is "hello", function is "handler"
+            });
+
+            // defines an API Gateway REST API resource backed by our "hello" function.
+            new LambdaRestApi(this, "Endpoint", new LambdaRestApiProps
+            {
+                Handler = hello
             });
         }
     }
