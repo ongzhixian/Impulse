@@ -3,12 +3,26 @@
  */
 package app;
 
+import app.Connect;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class App {
+
+    private static final Logger logger = LogManager.getLogger(App.class);
+
     public String getGreeting() {
         return "Hello world.";
     }
 
     public static void main(String[] args) {
+
+        logger.debug("Hello from Log4j 2");
+
         System.out.println(new App().getGreeting());
+
+        app.Connect.connect();
+
+        logger.debug("{}", () -> "sad");
     }
 }
