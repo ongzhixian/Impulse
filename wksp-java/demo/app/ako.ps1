@@ -33,6 +33,10 @@ switch ($application)
 	# 	dotcover report .\code-coverage\_report.xml
 	# }
 
+	"watch" {
+        .\gradlew.bat -t build
+    }
+
     "build" {
         .\gradlew.bat build
     }

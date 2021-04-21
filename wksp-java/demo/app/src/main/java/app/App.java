@@ -6,6 +6,9 @@ package app;
 import app.Connect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import static java.lang.System.out;
+
+import swing_app.HelloSwingApp;
 
 public class App {
 
@@ -15,14 +18,32 @@ public class App {
         return "Hello world.";
     }
 
+    static void PrintTestMessages() {
+        logger.fatal("Sample FATAL test message");
+        logger.error("Sample ERROR test message");
+        logger.warn( "Sample WARN  test message");
+        logger.info( "Sample INFO  test message");
+        logger.debug("Sample DEBUG test message");
+        logger.trace("Sample TRACE test message");
+    }
+
     public static void main(String[] args) {
 
-        logger.debug("Hello from Log4j 2");
+        out.println("[START PROGRAM]");
 
-        System.out.println(new App().getGreeting());
+        // PrintTestMessages();
 
-        app.Connect.connect();
+        HelloSwingApp app = new HelloSwingApp();
 
-        logger.debug("{}", () -> "sad");
+        app.Run();
+
+        //System.out.println(new App().getGreeting());
+
+        // app.Connect.connect();
+
+        // logger.info("{}", () -> "sad");
+
+        out.println("[END PROGRAM]");
+        
     }
 }
