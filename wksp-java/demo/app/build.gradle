@@ -21,6 +21,13 @@ repositories {
 }
 
 dependencies {
+    // runtime files('libs/mnist-tools.jar', 'libs/gson-2.2.4.jar')
+    // runtime fileTree(dir: 'libs', include: '*.jar')
+    // runtime files('libs/mnist-tools.jar', 'libs/gson-2.2.4.jar')
+    
+    //implementation fileTree(dir: 'libs', include: '*.jar')
+    implementation fileTree(dir: '../JARs', include: '*.jar')
+    
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
 

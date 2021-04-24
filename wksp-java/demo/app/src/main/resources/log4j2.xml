@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <Properties>
+        <Property name="LOG_DIR">logs</Property>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <RollingFile name="applicationLog"
+            fileName="${LOG_DIR}/application.log"
+            filePattern="${LOG_DIR}/application.log.%d{yyyyMMdd}.gz"
+            ignoreExceptions="false">
+            <PatternLayout>
+                <Pattern>%d{ABSOLUTE} [%-5p] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <!-- <OnStartupTriggeringPolicy /> -->
+                <SizeBasedTriggeringPolicy size="10 MB" />
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="all">
+            <AppenderRef ref="applicationLog"/>
+            <AppenderRef ref="console" />
+        </Root>
+    </Loggers>
+
+</Configuration>
