@@ -1,0 +1,34 @@
+/' Use case diagram for Loan Centre
+
+
+'/
+
+@startuml administrator-use-case
+
+' --------------------------------------------------------------------------------
+' Administrator Use Cases
+
+'newpage (implicit)
+
+!include _common_erd.uml
+
+title Administrator Use Cases
+
+' Entities
+!include _entity-definitions.uml
+
+' Relationship
+'Zero or One |o--
+'Exactly One ||--
+'Zero or Many }o--
+'One or Many }|--
+
+order }|-- courier
+order }|-- shipment
+
+
+@enduml
+
+@startuml open-iconic
+listopeniconic
+@enduml

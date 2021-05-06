@@ -1,0 +1,55 @@
+@startuml 
+
+package "Classic Collections" #DDDDDD {
+
+    entity "Shipment" as shipment {
+        *ID : integer(10)
+        --
+        *S_Date : date
+        Ship_ID : integer(10)
+    }
+
+
+    entity "Courier" as courier {
+        *ID : integer(10)
+        --
+        Name    : varchar(255)
+        Salary  : integer(10)
+        Address : varchar(255)
+    }
+
+}
+
+' Asterisks for PKs
+' * **Primary Key**
+' **Non-nullable**
+' Nullable 
+
+entity "Order" as order {
+    * **ID** : integer(10)
+    -- Fields --
+    **ShipmentID** : integer(10)
+    CourierID : integer(10)
+    DeliveryAddress : varchar(255)
+    CreateDate  : date
+}
+
+'entity "Order" as order {
+'    *ID : integer(10)
+'    --
+'    ShipmentID : integer(10)
+'    CourierID : integer(10)
+'    DeliveryAddress : varchar(255)
+'    CreateDate  : date
+'    -----
+'    -field1
+'    #field2
+'    __ PRIVATE __
+'    ~method1()
+'    +method2()
+'    +void {abstract} start(int timeoutms)
+'    +void {abstract} start(Duration timeout)
+'}
+
+
+@enduml

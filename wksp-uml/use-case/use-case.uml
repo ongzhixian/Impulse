@@ -1,0 +1,40 @@
+/' Use case diagram for Loan Centre
+
+# Conventions for sensible use-case diagrams
+
+Use-cases   Verb-Noun
+Actors      Noun/Role
+Package     Noun/Application
+
+'/
+
+@startuml administrator-use-case
+
+' --------------------------------------------------------------------------------
+' Administrator Use Cases
+
+'newpage (implicit)
+
+!include _common.uml
+
+title Administrator Use Cases
+
+' Actors
+
+:Application Administrator:     as app_admins
+:Job Manager:                   as job_managers
+:Job Operator:                  as job_ops
+
+' Use-cases
+!include _use-case-definitions.uml
+
+' Uses
+'app_admins --> create_masterItem
+
+'app_admins --> create_inBoundJob
+
+'app_admins --> create_outBoundJob
+
+'create_inBoundJob <-- ops
+
+@enduml

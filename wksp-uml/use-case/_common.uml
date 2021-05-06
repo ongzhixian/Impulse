@@ -1,0 +1,11 @@
+@startuml
+
+' Common format elements
+
+left header Filename: %filename()
+left footer Last updated: %date()
+
+left to right direction
+skinparam packageStyle rectangle
+
+@enduml
