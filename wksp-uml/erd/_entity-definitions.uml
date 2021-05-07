@@ -21,18 +21,19 @@ package "Classic Collections" #DDDDDD {
 }
 
 ' Asterisks for PKs
-' * **Primary Key**
-' **Non-nullable**
-' Nullable 
+' <&key> **ID**     : integer(10)
+' **Non-nullable**  : xxx
+' Nullable          : aaa 
 
 entity "Order" as order {
-    * **ID** : integer(10)
+    **ID**          : integer(10) <&key> 
     -- Fields --
-    **ShipmentID** : integer(10)
-    CourierID : integer(10)
+    **ShipmentID**  : integer(10)
+    CourierID       : integer(10)
     DeliveryAddress : varchar(255)
-    CreateDate  : date
+    CreateDate      : date
 }
+
 
 'entity "Order" as order {
 '    *ID : integer(10)

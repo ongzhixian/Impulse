@@ -12,6 +12,7 @@ left footer Last updated: %date()
 
 ' avoid problems with angled crows feet
 skinparam linetype ortho
+skinparam defaultFontName "Courier New"
 
 
 @enduml
