@@ -1,0 +1,54 @@
+/'  Free-tier resources diagram
+    Diagram to depict all the free-tier resources provisioned.
+    This diagram use "deployment-diagram" syntax to depict resources.
+'/
+
+@startuml free-tier resources
+
+'newpage (implicit)
+
+!include _common_resource.uml
+
+title Free-tier resources
+
+' ----------------------------------------
+' Resources
+'!include _resource-definitions.uml
+
+'actor actor
+'queue queue
+'stack stack
+'storage storage
+'collections collections
+'file file
+'folder folder
+
+cloud Internet as internet
+
+package "MongoDB Atlas" as mongoDbs {
+    
+    database emptool
+    database "hci-admin"
+}
+
+package "Neocities Websites" as neocities {
+    'folder 
+    rectangle "zhixian.neocities.org"
+}
+
+package "PythonAnywhere Websites" as pythonAnywhere {
+    'folder zhixian.pythonanywhere.com
+    rectangle "zhixian.pythonanywhere.com"
+
+}
+
+
+
+' ----------------------------------------
+' Relationships
+
+internet --> mongoDbs
+internet --> neocities
+internet --> pythonAnywhere
+
+@enduml

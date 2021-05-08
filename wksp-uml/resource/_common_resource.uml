@@ -1,0 +1,18 @@
+@startuml
+
+' Common format elements
+
+left header Filename: %filename()
+left footer Last updated: %date()
+
+'left to right direction
+
+' hide the spot
+'hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+skinparam defaultFontName "Courier New"
+
+
+@enduml

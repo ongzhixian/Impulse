@@ -1,0 +1,62 @@
+@startuml 
+
+' Include file for use case definitions
+
+'package "Password Utility Application" {
+'
+'    (Encrypt Password)          as encrypt_password
+'
+'    usecase (Decrypt Password)  as decrypt_password
+'
+'}
+
+package "Loan System" {
+
+    package "Master Item" {
+
+        (Create MasterItem)     as create_masterItem
+
+        (List MasterItem)       as list_masterItem
+
+        (View MasterItem)       as view_masterItem
+
+        (Update MasterItem)     as update_masterItem
+    
+        (Delete MasterItem)     as delete_masterItem
+    }
+
+    package "Inbound Job" {
+
+        (Create InboundJob)     as create_inboundJob
+
+        (List InboundJob)       as list_inboundJob
+
+        (View InboundJob)       as view_inboundJob
+
+        (Update InboundJob)     as update_inboundJob
+
+        (Cancel InboundJob)     as cancel_inboundJob
+
+    }
+
+    package "Outbound Job" {
+
+        (Create OutboundJob)    as create_outboundJob
+
+        (List OutboundJob)      as list_outboundJob
+
+        (View OutboundJob)      as view_outboundJob
+
+        (Update OutboundJob)    as update_outboundJob
+
+        (Cancel OutboundJob)    as cancel_outboundJob
+
+    }
+}
+
+' Actors
+':Administrator:     as administrators
+':Operator:          as operators
+
+
+@enduml
