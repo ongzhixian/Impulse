@@ -143,6 +143,15 @@ namespace Impulse.Common.Extensions
             return configuration;
         }
     }
-        
+
+    public static class LoggingBuilderContextExtensions
+    {
+        public static ILoggingBuilder AddLog4NetProvider(this ILoggingBuilder logging, string log4netConfigFileName)
+        {
+            logging.AddProvider(new Logging.Loggers.Log4NetProvider(new Logging.Loggers.Log4NetConfiguration(log4netConfigFileName)));
+            return logging;
+        }
+    }
+
 }
 
